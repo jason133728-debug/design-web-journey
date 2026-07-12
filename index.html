@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260712-3">
 </head>
 <body id="top">
   <header class="site-header">
@@ -31,9 +31,9 @@
     <section class="featured" id="featured" aria-labelledby="featured-title"></section>
 
     <section class="articles-section" id="articles">
-      <div class="section-title"><h2>最新文章</h2><span id="article-count">載入中</span></div>
+      <div class="section-title"><h2>最新文章</h2><span id="article-count" aria-live="polite">7 篇</span></div>
       <div class="article-highlights" aria-label="精選最新文章">
-        <article class="highlight-card"><div class="article-meta"><span>學習思考</span><span>2026.07.12</span></div><h3>先學會操作 Codex</h3><p>學會把需求說清楚、一次完成一件事，並在每次修改後親自檢查結果。</p><a href="article.html?id=learning-codex-first">閱讀文章 <span>→</span></a></article>
+        <article class="highlight-card"><div class="article-meta"><span>學習思考</span><span>2026.07.12</span></div><h3>先學會操作 Codex：我的網頁設計第一步</h3><p>學會把想法變成清楚的指令，再一步一步完成自己的網站。</p><a href="articles/learn-codex.html">閱讀文章 <span>→</span></a></article>
         <article class="highlight-card"><div class="article-meta"><span>實作筆記</span><span>2026.06.25</span></div><h3>我的第一個網頁練習</h3><p>從靜態排版到文章搜尋，記下第一次讓自己的頁面真正運作起來。</p><a href="article.html?id=first-interaction">閱讀文章 <span>→</span></a></article>
         <article class="highlight-card"><div class="article-meta"><span>學習思考</span><span>2026.07.12</span></div><h3>為什麼我要建立這個網站</h3><p>不是等到所有內容都準備好，而是先留下一個能持續累積與修改的地方。</p><a href="article.html?id=blank-page-first-step">閱讀文章 <span>→</span></a></article>
       </div>
@@ -59,16 +59,16 @@
       <div class="section-title"><h2>練習作品</h2><span>4 個練習</span></div>
       <p class="projects-intro">每個作品都保留練習目標、使用技術與目前狀態，讓進步不只停在完成畫面。</p>
       <div class="project-list">
-        <article class="practice-card"><div class="practice-index">01</div><div class="practice-meta"><span>HTML · CSS</span><span class="status done">已完成</span></div><h3>個人首頁練習</h3><p>練習建立清楚的首屏、內容層級與導覽，並維持一致的深色視覺。</p></article>
-        <article class="practice-card"><div class="practice-index">02</div><div class="practice-meta"><span>HTML · FORM</span><span class="status done">已完成</span></div><h3>登入頁練習</h3><p>練習表單標籤、輸入狀態、鍵盤焦點與容易理解的錯誤提示。</p></article>
-        <article class="practice-card"><div class="practice-index">03</div><div class="practice-meta"><span>CSS GRID · JS</span><span class="status done">已完成</span></div><h3>卡片式文章列表</h3><p>從同一份文章資料產生列表，加入分類、搜尋與沒有結果的回饋。</p></article>
-        <article class="practice-card"><div class="practice-index">04</div><div class="practice-meta"><span>RWD · ACCESSIBILITY</span><span class="status active">持續改善</span></div><h3>RWD 手機版練習</h3><p>針對窄螢幕重新安排順序、字級與操作範圍，而不只是縮小桌面版。</p></article>
+        <article class="practice-card"><div class="practice-index">01</div><div class="practice-meta"><span>HTML · CSS</span><span class="status done">已完成</span></div><h3>個人首頁練習</h3><p>練習建立清楚的首屏、內容層級與導覽，並維持一致的深色視覺。</p><span class="practice-action ready">查看紀錄</span></article>
+        <article class="practice-card"><div class="practice-index">02</div><div class="practice-meta"><span>HTML · FORM</span><span class="status active">練習中</span></div><h3>登入頁練習</h3><p>練習表單標籤、輸入狀態、鍵盤焦點與容易理解的錯誤提示。</p><span class="practice-action">整理中</span></article>
+        <article class="practice-card"><div class="practice-index">03</div><div class="practice-meta"><span>CSS GRID · JS</span><span class="status done">已完成</span></div><h3>卡片式文章列表</h3><p>從同一份文章資料產生列表，加入分類、搜尋與沒有結果的回饋。</p><span class="practice-action">整理中</span></article>
+        <article class="practice-card"><div class="practice-index">04</div><div class="practice-meta"><span>RWD · ACCESSIBILITY</span><span class="status active">持續改善</span></div><h3>RWD 手機版練習</h3><p>針對窄螢幕重新安排順序、字級與操作範圍，而不只是縮小桌面版。</p><span class="practice-action">即將補上</span></article>
       </div>
     </section>
 
     <section class="about" id="about">
       <div><p class="section-kicker">關於這裡</p><h2>一條邊做邊學的<br>網頁設計之路。</h2></div>
-      <div class="about-copy"><p>我正在學習網頁設計，這個網站用來記錄 HTML、CSS、版面設計與實作練習。每一篇筆記都會留下我遇到的問題、解法與修改過程。</p><p class="about-note">目前的重點，是把每次練習做完整、說清楚，再讓下一次比上一次進步一點。</p><div class="about-facts"><article><span>我的目標</span><b>學會獨立架設網站</b></article><article><span>我的工具</span><b>Codex、HTML、CSS</b></article><article><span>我的紀錄</span><b>每次修改都留下筆記</b></article></div></div>
+      <div class="about-copy"><p>我正在學習網頁設計，這個網站用來記錄 HTML、CSS、版面設計與實作練習。每一篇筆記都會留下我遇到的問題、解法與修改過程。</p><p>我不是一次就把網站做完，而是透過每次修改，慢慢學會如何讓網頁更清楚、更好讀、更能被使用。</p><p class="about-note">目前的重點，是把每次練習做完整、說清楚，再讓下一次比上一次進步一點。</p><div class="about-facts"><article><span>我的目標</span><b>學會獨立架設網站</b></article><article><span>我的工具</span><b>Codex、HTML、CSS</b></article><article><span>我的紀錄</span><b>每次修改都留下筆記</b></article></div></div>
     </section>
 
     <section class="subscribe" id="subscribe">
@@ -77,5 +77,5 @@
     </section>
   </main>
   <footer><p>© 2026 設計網頁之路</p><div><a href="#about">關於</a><a href="#subscribe">訂閱</a><a href="#top">回到頂端 ↑</a></div></footer>
-  <script src="articles.js?v=20260712-2"></script><script src="script.js?v=20260712-2"></script>
+  <script src="articles.js?v=20260712-3"></script><script src="script.js?v=20260712-3"></script>
 </body></html>

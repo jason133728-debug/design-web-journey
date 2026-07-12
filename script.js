@@ -6,16 +6,18 @@ const search = document.querySelector('#search-input');
 let activeCategory = '全部';
 
 const meta = article => `<span>${article.category}</span><span>${article.date}</span><span>閱讀 ${article.readTime}</span>`;
+const articleHref = article => article.id === 'learning-codex-first' ? 'articles/learn-codex.html' : `article.html?id=${article.id}`;
 
 if (featured) {
   document.querySelector('#featured').innerHTML = `
-    <a class="featured-cover ${featured.cover}" href="article.html?id=${featured.id}" aria-label="閱讀：${featured.title}"><span>01</span><i>LESS, BUT CLEARER</i></a>
-    <div class="featured-copy"><p class="section-kicker" id="featured-title">本期選讀</p><div class="article-meta">${meta(featured)}</div><h2><a href="article.html?id=${featured.id}">${featured.title}</a></h2><p>${featured.excerpt}</p><a class="read-link" href="article.html?id=${featured.id}">繼續閱讀 <span>→</span></a></div>`;
+    <a class="featured-cover ${featured.cover}" href="${articleHref(featured)}" aria-label="閱讀：${featured.title}"><span>01</span><i>LESS, BUT CLEARER</i></a>
+    <div class="featured-copy"><p class="section-kicker" id="featured-title">本期選讀</p><div class="article-meta">${meta(featured)}</div><h2><a href="${articleHref(featured)}">${featured.title}</a></h2><p>${featured.excerpt}</p><a class="read-link" href="${articleHref(featured)}">繼續閱讀 <span>→</span></a></div>`;
 } else {
   document.querySelector('#featured').hidden = true;
 }
 
 function render() {
+  empty.hidden = true;
   if (!articles.length) {
     document.querySelector('#article-count').textContent = '3 篇範例';
     return;
@@ -28,9 +30,9 @@ function render() {
   document.querySelector('#article-count').textContent = `${results.length} 篇`;
   list.innerHTML = results.map((article, index) => `
     <article class="article-row">
-      <a class="article-number ${article.cover}" href="article.html?id=${article.id}" aria-label="閱讀：${article.title}">${String(index + 1).padStart(2, '0')}</a>
-      <div><div class="article-meta">${meta(article)}</div><h3><a href="article.html?id=${article.id}">${article.title}</a></h3><p>${article.excerpt}</p></div>
-      <a class="row-arrow" href="article.html?id=${article.id}" aria-label="閱讀文章">↗</a>
+      <a class="article-number ${article.cover}" href="${articleHref(article)}" aria-label="閱讀：${article.title}">${String(index + 1).padStart(2, '0')}</a>
+      <div><div class="article-meta">${meta(article)}</div><h3><a href="${articleHref(article)}">${article.title}</a></h3><p>${article.excerpt}</p></div>
+      <a class="row-arrow" href="${articleHref(article)}" aria-label="閱讀文章">↗</a>
     </article>`).join('');
   empty.hidden = results.length > 0;
 }
@@ -48,7 +50,12 @@ search.addEventListener('input', render);
 document.querySelector('#clear-search').addEventListener('click', () => {
   search.value = '';
   activeCategory = '全部';
-  document.querySelector('.filter[data-category="全部"]').click();
+  document.querySelectorAll('.filter').forEach(item => {
+    const selected = item.dataset.category === '全部';
+    item.classList.toggle('active', selected);
+    item.setAttribute('aria-pressed', String(selected));
+  });
+  render();
   search.focus();
 });
 
