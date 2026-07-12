@@ -22,12 +22,21 @@
       <h1>把每一次嘗試，<br>變成下一頁的<em>起點。</em></h1>
       <p class="intro">這裡記錄我學習網頁設計的過程：做過的畫面、遇到的問題，以及那些只有親手完成一次才會真正明白的事。</p>
       <div class="hero-actions"><a class="action-primary" href="#articles">閱讀最新筆記</a><a class="action-secondary" href="#projects">看我的練習作品 <span>↓</span></a></div>
+      <aside class="progress-card" aria-labelledby="progress-title">
+        <div><p class="section-kicker">目前學習進度</p><h2 id="progress-title">正在把基礎，<br>一步步做成作品。</h2></div>
+        <dl><div><dt>HTML</dt><dd>學習中</dd></div><div><dt>CSS</dt><dd>練習中</dd></div><div><dt>JavaScript</dt><dd>準備開始</dd></div><div><dt>目前作品</dt><dd>1 個網站</dd></div></dl>
+      </aside>
     </section>
 
     <section class="featured" id="featured" aria-labelledby="featured-title"></section>
 
     <section class="articles-section" id="articles">
       <div class="section-title"><h2>最新文章</h2><span id="article-count">載入中</span></div>
+      <div class="article-highlights" aria-label="精選最新文章">
+        <article class="highlight-card"><div class="article-meta"><span>學習思考</span><span>2026.07.12</span></div><h3>先學會操作 Codex</h3><p>學會把需求說清楚、一次完成一件事，並在每次修改後親自檢查結果。</p><a href="article.html?id=learning-codex-first">閱讀文章 <span>→</span></a></article>
+        <article class="highlight-card"><div class="article-meta"><span>實作筆記</span><span>2026.06.25</span></div><h3>我的第一個網頁練習</h3><p>從靜態排版到文章搜尋，記下第一次讓自己的頁面真正運作起來。</p><a href="article.html?id=first-interaction">閱讀文章 <span>→</span></a></article>
+        <article class="highlight-card"><div class="article-meta"><span>學習思考</span><span>2026.07.12</span></div><h3>為什麼我要建立這個網站</h3><p>不是等到所有內容都準備好，而是先留下一個能持續累積與修改的地方。</p><a href="article.html?id=blank-page-first-step">閱讀文章 <span>→</span></a></article>
+      </div>
       <div class="article-tools">
         <div class="filters" role="group" aria-label="文章分類">
           <button class="filter active" data-category="全部" aria-pressed="true">全部</button>
@@ -59,12 +68,12 @@
 
     <section class="about" id="about">
       <div><p class="section-kicker">關於這裡</p><h2>一條邊做邊學的<br>網頁設計之路。</h2></div>
-      <div class="about-copy"><p>我正在學習網頁設計，這個網站用來記錄 HTML、CSS、版面設計與實作練習。每一篇筆記都會留下我遇到的問題、解法與修改過程。</p><p class="about-note">目前的重點，是把每次練習做完整、說清楚，再讓下一次比上一次進步一點。</p></div>
+      <div class="about-copy"><p>我正在學習網頁設計，這個網站用來記錄 HTML、CSS、版面設計與實作練習。每一篇筆記都會留下我遇到的問題、解法與修改過程。</p><p class="about-note">目前的重點，是把每次練習做完整、說清楚，再讓下一次比上一次進步一點。</p><div class="about-facts"><article><span>我的目標</span><b>學會獨立架設網站</b></article><article><span>我的工具</span><b>Codex、HTML、CSS</b></article><article><span>我的紀錄</span><b>每次修改都留下筆記</b></article></div></div>
     </section>
 
     <section class="subscribe" id="subscribe">
       <div><p>偶爾更新，不追趕演算法</p><h2>一起看著這個網站，<br>慢慢長出來。</h2></div>
-      <form id="subscribe-form"><p class="subscribe-help">訂閱後，我會不定期分享網頁設計學習筆記、實作紀錄與修改心得。</p><label for="email">電子信箱</label><div><input id="email" type="email" placeholder="you@example.com" required><button type="submit">訂閱筆記</button></div><p class="form-message" aria-live="polite"></p></form>
+      <form id="subscribe-form"><p class="subscribe-help">訂閱後，我會不定期分享網頁設計學習筆記、實作紀錄與網站修改心得。</p><label for="email">電子信箱</label><div><input id="email" type="email" placeholder="you@example.com" required><button type="submit">訂閱筆記</button></div><p class="form-message" aria-live="polite"></p></form>
     </section>
   </main>
   <footer><p>© 2026 設計網頁之路</p><div><a href="#about">關於</a><a href="#subscribe">訂閱</a><a href="#top">回到頂端 ↑</a></div></footer>
