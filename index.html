@@ -1,30 +1,33 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="從一張空白頁開始，記錄網頁設計的學習、實作與思考。">
-  <title>設計網頁之路｜學習與實作筆記</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="記錄從零開始學習網頁設計的過程，包含 HTML、CSS、版面設計、實作練習、錯誤修正與作品紀錄。">
+  <title>設計網頁之路｜HTML、CSS 與網頁設計學習筆記</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body id="top">
   <header class="site-header">
     <a class="brand" href="index.html">設計網頁之路 <small>學習與實作筆記</small></a>
     <button class="menu-button" aria-expanded="false" aria-controls="site-nav">選單</button>
-    <nav id="site-nav" aria-label="主要導覽"><a href="#articles">文章</a><a href="#about">關於</a><a href="#subscribe">訂閱</a></nav>
+    <nav id="site-nav" aria-label="主要導覽"><a href="#articles">文章</a><a href="#projects">作品</a><a href="#about">關於</a><a href="#subscribe">訂閱</a></nav>
   </header>
   <main>
     <section class="intro-wrap">
       <p class="issue">從零開始 · 持續更新</p>
       <h1>把每一次嘗試，<br>變成下一頁的<em>起點。</em></h1>
       <p class="intro">這裡記錄我學習網頁設計的過程：做過的畫面、遇到的問題，以及那些只有親手完成一次才會真正明白的事。</p>
+      <div class="hero-actions"><a class="action-primary" href="#articles">閱讀最新筆記</a><a class="action-secondary" href="#projects">看我的練習作品 <span>↓</span></a></div>
     </section>
 
     <section class="featured" id="featured" aria-labelledby="featured-title"></section>
 
     <section class="articles-section" id="articles">
-      <div class="section-title"><h2>最新文章</h2><span id="article-count"></span></div>
+      <div class="section-title"><h2>最新文章</h2><span id="article-count">載入中</span></div>
       <div class="article-tools">
         <div class="filters" role="group" aria-label="文章分類">
           <button class="filter active" data-category="全部" aria-pressed="true">全部</button>
@@ -34,18 +37,34 @@
         </div>
         <label class="search"><span class="sr-only">搜尋文章</span><input id="search-input" type="search" placeholder="搜尋文章…" autocomplete="off"><span aria-hidden="true">⌕</span></label>
       </div>
-      <div class="article-list" id="article-list"></div>
+      <div class="article-list" id="article-list">
+        <article class="article-row fallback-article"><div class="article-number cover-grid">01</div><div><div class="article-meta"><span>學習思考</span><span>2026.07.12</span></div><h3>我為什麼開始學網頁設計</h3><p>從一張空白頁開始，為自己留下一個可以持續累積與修改的地方。</p></div></article>
+        <article class="article-row fallback-article"><div class="article-number cover-type">02</div><div><div class="article-meta"><span>實作筆記</span><span>2026.06.25</span></div><h3>我的第一個網頁作品紀錄</h3><p>從靜態排版到搜尋與分類，記下第一次讓頁面真正動起來的過程。</p></div></article>
+        <article class="article-row fallback-article"><div class="article-number cover-path">03</div><div><div class="article-meta"><span>錯誤修正</span><span>2026.06.18</span></div><h3>做這個網站時遇到的 5 個問題</h3><p>整理手機排版、空結果、錯誤網址與鍵盤操作等容易被忽略的細節。</p></div></article>
+      </div>
+      <noscript><p class="script-note">目前瀏覽器停用了 JavaScript，因此先顯示三篇文章摘要；啟用後可使用完整文章、分類與搜尋。</p></noscript>
       <div class="empty-state" id="empty-state" hidden><p>沒有找到符合條件的文章。</p><button id="clear-search">清除搜尋</button></div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="section-title"><h2>練習作品</h2><span>4 個練習</span></div>
+      <p class="projects-intro">每個作品都保留練習目標、使用技術與目前狀態，讓進步不只停在完成畫面。</p>
+      <div class="project-list">
+        <article class="practice-card"><div class="practice-index">01</div><div class="practice-meta"><span>HTML · CSS</span><span class="status done">已完成</span></div><h3>個人首頁練習</h3><p>練習建立清楚的首屏、內容層級與導覽，並維持一致的深色視覺。</p></article>
+        <article class="practice-card"><div class="practice-index">02</div><div class="practice-meta"><span>HTML · FORM</span><span class="status done">已完成</span></div><h3>登入頁練習</h3><p>練習表單標籤、輸入狀態、鍵盤焦點與容易理解的錯誤提示。</p></article>
+        <article class="practice-card"><div class="practice-index">03</div><div class="practice-meta"><span>CSS GRID · JS</span><span class="status done">已完成</span></div><h3>卡片式文章列表</h3><p>從同一份文章資料產生列表，加入分類、搜尋與沒有結果的回饋。</p></article>
+        <article class="practice-card"><div class="practice-index">04</div><div class="practice-meta"><span>RWD · ACCESSIBILITY</span><span class="status active">持續改善</span></div><h3>RWD 手機版練習</h3><p>針對窄螢幕重新安排順序、字級與操作範圍，而不只是縮小桌面版。</p></article>
+      </div>
     </section>
 
     <section class="about" id="about">
       <div><p class="section-kicker">關於這裡</p><h2>一條邊做邊學的<br>網頁設計之路。</h2></div>
-      <div class="about-copy"><p>我正在學習如何把想法變成真正能打開、能閱讀、也能使用的網頁。這不是專家的教科書，而是一份誠實的過程紀錄。姓名暫時留白，讓作品先替我說話。</p></div>
+      <div class="about-copy"><p>我正在學習網頁設計，這個網站用來記錄 HTML、CSS、版面設計與實作練習。每一篇筆記都會留下我遇到的問題、解法與修改過程。</p><p class="about-note">目前的重點，是把每次練習做完整、說清楚，再讓下一次比上一次進步一點。</p></div>
     </section>
 
     <section class="subscribe" id="subscribe">
       <div><p>偶爾更新，不追趕演算法</p><h2>一起看著這個網站，<br>慢慢長出來。</h2></div>
-      <form id="subscribe-form"><label for="email">電子信箱</label><div><input id="email" type="email" placeholder="you@example.com" required><button type="submit">訂閱筆記</button></div><p class="form-message" aria-live="polite"></p></form>
+      <form id="subscribe-form"><p class="subscribe-help">訂閱後，我會不定期分享網頁設計學習筆記、實作紀錄與修改心得。</p><label for="email">電子信箱</label><div><input id="email" type="email" placeholder="you@example.com" required><button type="submit">訂閱筆記</button></div><p class="form-message" aria-live="polite"></p></form>
     </section>
   </main>
   <footer><p>© 2026 設計網頁之路</p><div><a href="#about">關於</a><a href="#subscribe">訂閱</a><a href="#top">回到頂端 ↑</a></div></footer>
