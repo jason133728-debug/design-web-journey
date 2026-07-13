@@ -11,8 +11,8 @@ const articleHref = article => articlePaths[article.id] || '#articles';
 
 if (featured) {
   document.querySelector('#featured').innerHTML = `
-    <a class="featured-cover ${featured.cover}" href="${articleHref(featured)}" aria-label="閱讀：${featured.title}"><span>01</span><i>LESS, BUT CLEARER</i></a>
-    <div class="featured-copy"><p class="section-kicker" id="featured-title">本期選讀</p><div class="article-meta">${meta(featured)}</div><h2><a href="${articleHref(featured)}">${featured.title}</a></h2><p>${featured.excerpt}</p><a class="read-link" href="${articleHref(featured)}">繼續閱讀 <span>→</span></a></div>`;
+    <a class="featured-cover ${featured.cover}" href="${articleHref(featured)}" aria-label="閱讀：${featured.title}"><span>01</span><i>KEEP LEARNING, KEEP MAKING</i></a>
+    <div class="featured-copy"><p class="section-kicker" id="featured-title">本週靈感筆記</p><div class="article-meta">${meta(featured)}</div><h2><a href="${articleHref(featured)}">${featured.title}</a></h2><p>${featured.excerpt}</p><a class="read-link" href="${articleHref(featured)}">一起讀下去 <span>→</span></a></div>`;
 } else {
   document.querySelector('#featured').hidden = true;
 }

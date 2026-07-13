@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">設計網頁之路</title><desc id="desc">網頁設計學習筆記與作品紀錄</desc>
-  <rect width="1200" height="630" fill="#171916"/><path d="M76 66h1048" stroke="#3c403a"/>
-  <text x="76" y="122" fill="#eeeae0" font-family="Microsoft JhengHei,sans-serif" font-size="26" font-weight="700">設計網頁之路</text>
-  <text x="830" y="119" fill="#9ab7a6" font-family="Arial,sans-serif" font-size="18">HTML · CSS · WEB DESIGN</text>
-  <text x="76" y="270" fill="#eeeae0" font-family="Microsoft JhengHei,sans-serif" font-size="76" font-weight="700">把每一次嘗試，</text>
-  <text x="76" y="378" fill="#eeeae0" font-family="Microsoft JhengHei,sans-serif" font-size="76" font-weight="700">變成下一頁的<tspan fill="#9ab7a6">起點。</tspan></text>
-  <g opacity=".38" stroke="#9ab7a6"><rect x="895" y="330" width="210" height="210" fill="none"/><path d="M937 330v210m42-210v210m42-210v210m42-210v210"/></g>
-  <text x="76" y="575" fill="#a6a99f" font-family="Microsoft JhengHei,sans-serif" font-size="20">網頁設計學習筆記與作品紀錄</text>
-  <text x="930" y="575" fill="#a6a99f" font-family="Arial,sans-serif" font-size="16">design-web-journey</text>
+  <rect width="1200" height="630" fill="#fff9ef"/><path d="M76 66h1048" stroke="#28243d" stroke-width="2"/>
+  <text x="76" y="122" fill="#51459a" font-family="Microsoft JhengHei,sans-serif" font-size="26" font-weight="700">設計網頁之路</text>
+  <text x="830" y="119" fill="#167c70" font-family="Arial,sans-serif" font-size="18">HTML · CSS · WEB DESIGN</text>
+  <rect x="76" y="165" width="235" height="42" rx="6" fill="#ffe29a" stroke="#28243d"/><text x="94" y="194" fill="#28243d" font-family="Microsoft JhengHei,sans-serif" font-size="18">今天也多會一點</text>
+  <text x="76" y="310" fill="#28243d" font-family="Microsoft JhengHei,sans-serif" font-size="76" font-weight="700">邊做邊學，</text>
+  <text x="76" y="418" fill="#28243d" font-family="Microsoft JhengHei,sans-serif" font-size="76" font-weight="700">讓靈感真的<tspan fill="#e85d4a">動起來。</tspan></text>
+  <g opacity=".75" stroke="#51459a"><rect x="895" y="330" width="210" height="210" fill="#dff2ed"/><path d="M937 330v210m42-210v210m42-210v210m42-210v210"/></g><text x="1080" y="205" fill="#e85d4a" font-size="54">✦</text>
+  <text x="76" y="575" fill="#676273" font-family="Microsoft JhengHei,sans-serif" font-size="20">網頁設計學習筆記與作品紀錄</text>
+  <text x="930" y="575" fill="#676273" font-family="Arial,sans-serif" font-size="16">design-web-journey</text>
 </svg>
