@@ -2,13 +2,15 @@ const root = document.querySelector('#article-root');
 const id = new URLSearchParams(location.search).get('id');
 const articles = window.ARTICLES;
 const article = articles.find(item => item.id === id);
-const articlePaths = {'learning-codex-first':'articles/learn-codex.html','blank-page-first-step':'articles/why-build-site.html','good-page-not-more':'articles/less-but-clearer.html','responsive-is-priority':'articles/responsive-design.html','first-interaction':'articles/search-and-filter.html','details-i-missed':'articles/important-details.html','learning-by-finishing':'articles/learning-by-finishing.html'};
+const articlePaths = {'learning-codex-first':'articles/learn-codex.html','blank-page-first-step':'articles/why-build-site.html','first-webpage':'articles/first-webpage.html','good-page-not-more':'articles/less-but-clearer.html','responsive-is-priority':'articles/responsive-design.html','first-interaction':'articles/search-and-filter.html','details-i-missed':'articles/important-details.html','learning-by-finishing':'articles/learning-by-finishing.html'};
 const articleHref = item => articlePaths[item.id] || 'index.html#articles';
 if (!article) {
   document.title = '找不到文章｜設計網頁之路';
-  root.innerHTML = `<section class="not-found"><p>404</p><h1>這篇文章不存在，<br>或已經移動。</h1><a href="index.html#articles">← 回到所有文章</a></section>`;
+  document.querySelector('meta[name="description"]').content = '找不到指定文章，文章可能仍在整理中或已經移動。';
+  root.innerHTML = `<section class="not-found"><p>文章整理中</p><h1>找不到這篇文章，<br>它可能仍在整理中。</h1><a href="index.html#articles">← 回到所有文章</a></section>`;
 } else {
   document.title = `${article.title}｜設計網頁之路`;
+  document.querySelector('meta[name="description"]').content = article.excerpt;
   const index = articles.indexOf(article), prev = articles[index - 1], next = articles[index + 1];
   const body = article.content.map(([type,text]) => type === 'h2' ? `<h2>${text}</h2>` : type === 'quote' ? `<blockquote>${text}</blockquote>` : `<p>${text}</p>`).join('');
   const related = articles.filter(a => a.category === article.category && a.id !== article.id).slice(0,2);

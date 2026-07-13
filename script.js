@@ -1,4 +1,5 @@
-const articles = Array.isArray(window.ARTICLES) ? window.ARTICLES : [];
+const allArticles = Array.isArray(window.ARTICLES) ? window.ARTICLES : [];
+const articles = Array.isArray(window.HOMEPAGE_ARTICLES) ? window.HOMEPAGE_ARTICLES : allArticles.slice(0, 3);
 const featured = articles.find(article => article.featured) || articles[0];
 const list = document.querySelector('#article-list');
 const empty = document.querySelector('#empty-state');
@@ -6,7 +7,7 @@ const search = document.querySelector('#search-input');
 let activeCategory = '全部';
 
 const meta = article => `<span>${article.category}</span><span>${article.date}</span><span>閱讀 ${article.readTime}</span>`;
-const articlePaths = {'learning-codex-first':'articles/learn-codex.html','blank-page-first-step':'articles/why-build-site.html','good-page-not-more':'articles/less-but-clearer.html','responsive-is-priority':'articles/responsive-design.html','first-interaction':'articles/search-and-filter.html','details-i-missed':'articles/important-details.html','learning-by-finishing':'articles/learning-by-finishing.html'};
+const articlePaths = {'learning-codex-first':'articles/learn-codex.html','blank-page-first-step':'articles/why-build-site.html','first-webpage':'articles/first-webpage.html','good-page-not-more':'articles/less-but-clearer.html','responsive-is-priority':'articles/responsive-design.html','first-interaction':'articles/search-and-filter.html','details-i-missed':'articles/important-details.html','learning-by-finishing':'articles/learning-by-finishing.html'};
 const articleHref = article => articlePaths[article.id] || '#articles';
 
 if (featured) {
@@ -20,7 +21,9 @@ if (featured) {
 function render() {
   empty.hidden = true;
   if (!articles.length) {
-    document.querySelector('#article-count').textContent = '3 篇範例';
+    list.innerHTML = '';
+    document.querySelector('#article-count').textContent = '0 篇';
+    empty.hidden = false;
     return;
   }
   const term = search.value.trim().toLowerCase();
@@ -32,7 +35,7 @@ function render() {
   list.innerHTML = results.map((article, index) => `
     <article class="article-row">
       <a class="article-number ${article.cover}" href="${articleHref(article)}" aria-label="閱讀：${article.title}">${String(index + 1).padStart(2, '0')}</a>
-      <div><div class="article-meta">${meta(article)}</div><h3><a href="${articleHref(article)}">${article.title}</a></h3><p>${article.excerpt}</p></div>
+      <div><div class="article-meta">${meta(article)}</div><h3><a href="${articleHref(article)}">${article.homeTitle || article.title}</a></h3><p>${article.excerpt}</p></div>
       <a class="row-arrow" href="${articleHref(article)}" aria-label="閱讀文章">↗</a>
     </article>`).join('');
   empty.hidden = results.length > 0;
