@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jason133728-debug.github.io/design-web-journey/sitemap.xml
