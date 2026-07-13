@@ -8,3 +8,14 @@ window.ARTICLES = [
   {id:'learning-by-finishing',category:'學習思考',date:'2026.06.10',readTime:'5 分鐘',title:'比起一直收藏教學，我更需要完成一個作品',excerpt:'知道和做到之間，隔著許多只有在真正完成作品時才會遇見的問題。',cover:'cover-calendar',content:[['p','收藏一篇好教學會帶來「我好像學會了」的感覺，但真正打開編輯器後，仍會遇到不知道從哪裡開始的空白。'],['h2','完成會暴露真正的問題'],['p','只有做完整個頁面，才會發現字體載入、手機排版、內容長度和錯誤狀態彼此牽連。這些不是看完單一章節就能理解的。'],['quote','作品不必完美，但要完整到足以告訴你下一步該學什麼。'],['p','所以我想用這個網站作為長期練習：每完成一版，就記下學到的事，再讓下一版比現在更清楚一點。']]}
 ];
 window.ARTICLES[0].shortTitle = '先學會操作 Codex';
+const revisedReadTimes = {
+  'blank-page-first-step': '3 分鐘',
+  'good-page-not-more': '2 分鐘',
+  'responsive-is-priority': '2 分鐘',
+  'first-interaction': '2 分鐘',
+  'details-i-missed': '2 分鐘',
+  'learning-by-finishing': '2 分鐘'
+};
+window.ARTICLES.forEach(article => {
+  article.readTime = revisedReadTimes[article.id] || article.readTime;
+});

@@ -71,8 +71,8 @@ nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
   menu.setAttribute('aria-expanded', 'false');
 }));
 
-document.querySelector('#subscribe-form').addEventListener('submit', event => {
-  event.preventDefault();
-  event.currentTarget.querySelector('.form-message').textContent = '謝謝你。這是展示版本，電子報功能尚未啟用。';
-});
+const subscribeForm = document.querySelector('#subscribe-form');
+if (subscribeForm) {
+  subscribeForm.addEventListener('submit', event => event.preventDefault());
+}
 render();
