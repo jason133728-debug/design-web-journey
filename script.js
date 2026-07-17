@@ -7,7 +7,7 @@ const search = document.querySelector('#search-input');
 let activeCategory = '全部';
 
 const meta = article => `<span>${article.category}</span><span>${article.date}</span><span>閱讀 ${article.readTime}</span>`;
-const articlePaths = {'learning-codex-first':'articles/learn-codex.html','blank-page-first-step':'articles/why-build-site.html','first-webpage':'articles/first-webpage.html','good-page-not-more':'articles/less-but-clearer.html','responsive-is-priority':'articles/responsive-design.html','first-interaction':'articles/search-and-filter.html','details-i-missed':'articles/important-details.html','learning-by-finishing':'articles/learning-by-finishing.html'};
+const articlePaths = window.ARTICLE_PATHS || {};
 const articleHref = article => articlePaths[article.id] || '#articles';
 
 if (featured) {
@@ -27,7 +27,10 @@ function render() {
     return;
   }
   const term = search.value.trim().toLowerCase();
-  const results = articles.filter(article =>
+  const source = term || activeCategory !== '全部'
+    ? articles
+    : articles.filter(article => article.id !== featured?.id);
+  const results = source.filter(article =>
     (activeCategory === '全部' || article.category === activeCategory) &&
     `${article.title}${article.excerpt}${article.category}`.toLowerCase().includes(term)
   );

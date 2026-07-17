@@ -40,3 +40,13 @@ window.ARTICLES.push({
 });
 window.HOMEPAGE_ARTICLE_IDS = ['learning-codex-first', 'blank-page-first-step', 'first-webpage'];
 window.HOMEPAGE_ARTICLES = window.HOMEPAGE_ARTICLE_IDS.map(id => window.ARTICLES.find(article => article.id === id)).filter(Boolean);
+window.ARTICLE_PATHS = {
+  'learning-codex-first': 'articles/learn-codex.html',
+  'blank-page-first-step': 'articles/why-build-site.html',
+  'first-webpage': 'articles/first-webpage.html',
+  'good-page-not-more': 'articles/less-but-clearer.html',
+  'responsive-is-priority': 'articles/responsive-design.html',
+  'first-interaction': 'articles/search-and-filter.html',
+  'details-i-missed': 'articles/important-details.html',
+  'learning-by-finishing': 'articles/learning-by-finishing.html'
+};

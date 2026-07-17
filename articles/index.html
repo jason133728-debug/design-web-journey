@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="瀏覽設計網頁之路的全部學習筆記，包含網頁設計、實作紀錄、問題修正與學習思考。">
+  <meta name="author" content="設計網頁之路">
+  <title>全部文章｜設計網頁之路</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css?v=20260717-1">
+  <link rel="canonical" href="https://jason133728-debug.github.io/design-web-journey/articles/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:site_name" content="設計網頁之路">
+  <meta property="og:title" content="全部文章｜設計網頁之路">
+  <meta property="og:description" content="一次查看所有網頁設計學習筆記、實作紀錄與修改心得。">
+  <meta property="og:url" content="https://jason133728-debug.github.io/design-web-journey/articles/">
+  <meta property="og:image" content="https://jason133728-debug.github.io/design-web-journey/assets/social-preview.svg">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="../index.html">設計網頁之路 <small>學習與實作筆記</small></a>
+    <a class="back-link" href="../index.html">← 返回首頁</a>
+  </header>
+  <main>
+    <section class="archive-hero" aria-labelledby="archive-title">
+      <p class="issue">文章總覽 · 8 篇學習紀錄</p>
+      <h1 id="archive-title">把每次遇到的問題，<br>整理成下一次用得上的<em>答案。</em></h1>
+      <p>這裡收錄網站目前所有文章。可以依照分類或關鍵字，找到網頁設計、實作過程與學習思考。</p>
+    </section>
+    <section class="articles-section archive-section" aria-labelledby="all-articles-title">
+      <div class="section-title"><h2 id="all-articles-title">全部文章</h2><span id="article-count" aria-live="polite">8 篇</span></div>
+      <div class="article-tools">
+        <div class="filters" role="group" aria-label="文章分類">
+          <button class="filter active" data-category="全部" aria-pressed="true">全部</button>
+          <button class="filter" data-category="網頁設計" aria-pressed="false">網頁設計</button>
+          <button class="filter" data-category="實作筆記" aria-pressed="false">實作筆記</button>
+          <button class="filter" data-category="學習思考" aria-pressed="false">學習思考</button>
+        </div>
+        <label class="search"><span class="sr-only">搜尋全部文章</span><input id="archive-search" type="search" placeholder="搜尋全部文章…" autocomplete="off"><span aria-hidden="true">⌕</span></label>
+      </div>
+      <div class="article-list" id="archive-list" aria-live="polite"></div>
+      <div class="empty-state" id="archive-empty" hidden><p>沒有找到符合條件的文章。</p><button id="archive-clear">清除搜尋</button></div>
+      <noscript><p class="script-note">目前瀏覽器停用了 JavaScript，請從首頁的最新文章開始閱讀。</p></noscript>
+    </section>
+  </main>
+  <footer><p>© 2026 設計網頁之路</p><div><a href="../index.html#projects">練習作品</a><a href="../index.html#about">關於</a><a href="#top">回到頂端 ↑</a></div></footer>
+  <script src="../articles.js?v=20260717-1"></script>
+  <script src="archive.js?v=20260717-1"></script>
+</body>
+</html>
