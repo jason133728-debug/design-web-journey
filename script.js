@@ -4,6 +4,7 @@ const featured = articles.find(article => article.featured) || articles[0];
 const list = document.querySelector('#article-list');
 const empty = document.querySelector('#empty-state');
 const search = document.querySelector('#search-input');
+const articleTools = document.querySelector('.article-tools');
 let activeCategory = '全部';
 
 const meta = article => `<span>${article.category}</span><span>${article.date}</span><span>閱讀 ${article.readTime}</span>`;
@@ -15,15 +16,14 @@ if (featured) {
     <a class="featured-cover ${featured.cover}" href="${articleHref(featured)}" aria-label="閱讀：${featured.title}"><span>01</span><i>KEEP LEARNING, KEEP MAKING</i></a>
     <div class="featured-copy"><p class="section-kicker" id="featured-title">本週靈感筆記</p><div class="article-meta">${meta(featured)}</div><h2><a href="${articleHref(featured)}">${featured.title}</a></h2><p>${featured.excerpt}</p><a class="read-link" href="${articleHref(featured)}">一起讀下去 <span>→</span></a></div>`;
 } else {
-  document.querySelector('#featured').hidden = true;
+  document.querySelector('#featured').hidden = false;
 }
 
 function render() {
   empty.hidden = true;
   if (!articles.length) {
-    list.innerHTML = '';
-    document.querySelector('#article-count').textContent = '0 篇';
-    empty.hidden = false;
+    document.querySelector('#article-count').textContent = `${list.querySelectorAll('.article-row').length} 篇`;
+    articleTools.hidden = true;
     return;
   }
   const term = search.value.trim().toLowerCase();

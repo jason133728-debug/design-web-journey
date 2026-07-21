@@ -4,6 +4,8 @@ const archiveList = document.querySelector('#archive-list');
 const archiveEmpty = document.querySelector('#archive-empty');
 const archiveSearch = document.querySelector('#archive-search');
 const archiveCount = document.querySelector('#article-count');
+const archiveTools = document.querySelector('.article-tools');
+const hasArchiveData = archiveArticles.length > 0 && Object.keys(archivePaths).length > 0;
 let archiveCategory = '全部';
 
 const archiveHref = article => (archivePaths[article.id] || '').replace(/^articles\//, '') || '../index.html#articles';
@@ -26,27 +28,33 @@ function renderArchive() {
   archiveEmpty.hidden = results.length > 0;
 }
 
-document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
-  archiveCategory = button.dataset.category;
-  document.querySelectorAll('.filter').forEach(item => {
-    const selected = item === button;
-    item.classList.toggle('active', selected);
-    item.setAttribute('aria-pressed', String(selected));
-  });
-  renderArchive();
-}));
+if (hasArchiveData) {
+  document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
+    archiveCategory = button.dataset.category;
+    document.querySelectorAll('.filter').forEach(item => {
+      const selected = item === button;
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
+    renderArchive();
+  }));
 
-archiveSearch.addEventListener('input', renderArchive);
-document.querySelector('#archive-clear').addEventListener('click', () => {
-  archiveSearch.value = '';
-  archiveCategory = '全部';
-  document.querySelectorAll('.filter').forEach(item => {
-    const selected = item.dataset.category === '全部';
-    item.classList.toggle('active', selected);
-    item.setAttribute('aria-pressed', String(selected));
+  archiveSearch.addEventListener('input', renderArchive);
+  document.querySelector('#archive-clear').addEventListener('click', () => {
+    archiveSearch.value = '';
+    archiveCategory = '全部';
+    document.querySelectorAll('.filter').forEach(item => {
+      const selected = item.dataset.category === '全部';
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
+    renderArchive();
+    archiveSearch.focus();
   });
-  renderArchive();
-  archiveSearch.focus();
-});
 
-renderArchive();
+  renderArchive();
+} else {
+  archiveCount.textContent = `${archiveList.querySelectorAll('.article-row').length} 篇`;
+  archiveEmpty.hidden = true;
+  archiveTools.hidden = true;
+}
