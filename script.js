@@ -20,15 +20,15 @@ if (featured) {
 }
 
 function render() {
-  empty.hidden = true;
   if (!articles.length) {
     document.querySelector('#article-count').textContent = `${list.querySelectorAll('.article-row').length} 篇`;
+    empty.hidden = true;
     articleTools.hidden = true;
     return;
   }
   const term = search.value.trim().toLowerCase();
   const source = term || activeCategory !== '全部'
-    ? articles
+    ? allArticles
     : articles.filter(article => article.id !== featured?.id);
   const results = source.filter(article =>
     (activeCategory === '全部' || article.category === activeCategory) &&
@@ -41,7 +41,7 @@ function render() {
       <div><div class="article-meta">${meta(article)}</div><h3><a href="${articleHref(article)}">${article.homeTitle || article.title}</a></h3><p>${article.excerpt}</p></div>
       <a class="row-arrow" href="${articleHref(article)}" aria-label="閱讀文章">↗</a>
     </article>`).join('');
-  empty.hidden = results.length > 0;
+  empty.hidden = results.length !== 0;
 }
 
 document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {

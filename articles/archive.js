@@ -25,7 +25,7 @@ function renderArchive() {
       <div><div class="article-meta">${archiveMeta(article)}</div><h3><a href="${archiveHref(article)}">${article.title}</a></h3><p>${article.excerpt}</p></div>
       <a class="row-arrow" href="${archiveHref(article)}" aria-label="閱讀文章">↗</a>
     </article>`).join('');
-  archiveEmpty.hidden = results.length > 0;
+  archiveEmpty.hidden = results.length !== 0;
 }
 
 if (hasArchiveData) {
