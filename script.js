@@ -11,6 +11,36 @@ const meta = article => `<span>${article.category}</span><span>${article.date}</
 const articlePaths = window.ARTICLE_PATHS || {};
 const articleHref = article => articlePaths[article.id] || '#articles';
 
+function clearSearch() {
+  search.value = '';
+  activeCategory = '全部';
+  document.querySelectorAll('.filter').forEach(item => {
+    const selected = item.dataset.category === '全部';
+    item.classList.toggle('active', selected);
+    item.setAttribute('aria-pressed', String(selected));
+  });
+  render();
+  search.focus();
+}
+
+function setEmptyState(isEmpty) {
+  if (!isEmpty) {
+    empty.replaceChildren();
+    empty.hidden = true;
+    return;
+  }
+
+  const message = document.createElement('p');
+  message.textContent = '沒有找到符合條件的文章。';
+  const clearButton = document.createElement('button');
+  clearButton.type = 'button';
+  clearButton.id = 'clear-search';
+  clearButton.textContent = '清除搜尋';
+  clearButton.addEventListener('click', clearSearch);
+  empty.replaceChildren(message, clearButton);
+  empty.hidden = false;
+}
+
 if (featured) {
   document.querySelector('#featured').innerHTML = `
     <a class="featured-cover ${featured.cover}" href="${articleHref(featured)}" aria-label="閱讀：${featured.title}"><span>01</span><i>KEEP LEARNING, KEEP MAKING</i></a>
@@ -22,7 +52,7 @@ if (featured) {
 function render() {
   if (!articles.length) {
     document.querySelector('#article-count').textContent = `${list.querySelectorAll('.article-row').length} 篇`;
-    empty.hidden = true;
+    setEmptyState(false);
     articleTools.hidden = true;
     return;
   }
@@ -41,7 +71,7 @@ function render() {
       <div><div class="article-meta">${meta(article)}</div><h3><a href="${articleHref(article)}">${article.homeTitle || article.title}</a></h3><p>${article.excerpt}</p></div>
       <a class="row-arrow" href="${articleHref(article)}" aria-label="閱讀文章">↗</a>
     </article>`).join('');
-  empty.hidden = results.length !== 0;
+  setEmptyState(results.length === 0);
 }
 
 document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
@@ -54,17 +84,6 @@ document.querySelectorAll('.filter').forEach(button => button.addEventListener('
   render();
 }));
 search.addEventListener('input', render);
-document.querySelector('#clear-search').addEventListener('click', () => {
-  search.value = '';
-  activeCategory = '全部';
-  document.querySelectorAll('.filter').forEach(item => {
-    const selected = item.dataset.category === '全部';
-    item.classList.toggle('active', selected);
-    item.setAttribute('aria-pressed', String(selected));
-  });
-  render();
-  search.focus();
-});
 
 const menu = document.querySelector('.menu-button');
 const nav = document.querySelector('#site-nav');

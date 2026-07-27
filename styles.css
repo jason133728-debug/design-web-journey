@@ -19,3 +19,8 @@ body{background:var(--paper);color:var(--ink)}:focus-visible{outline-color:var(-
 
 /* State visibility must win over component presentation styles. */
 [hidden]{display:none!important}
+
+/* Keep the about facts visually consistent while giving each item real heading structure. */
+.about-facts h3{margin:0;color:var(--muted);font:600 12px/1.6 "Noto Sans TC"}
+.about-facts p{margin:0;font:500 14px/1.6 "Noto Sans TC"}
+.about-facts article:nth-child(1) h3{color:#a43b30}.about-facts article:nth-child(2) h3{color:var(--teal)}.about-facts article:nth-child(3) h3{color:var(--purple)}

@@ -11,6 +11,36 @@ let archiveCategory = '全部';
 const archiveHref = article => (archivePaths[article.id] || '').replace(/^articles\//, '') || '../index.html#articles';
 const archiveMeta = article => `<span>${article.category}</span><span>${article.date}</span><span>閱讀 ${article.readTime}</span>`;
 
+function clearArchiveSearch() {
+  archiveSearch.value = '';
+  archiveCategory = '全部';
+  document.querySelectorAll('.filter').forEach(item => {
+    const selected = item.dataset.category === '全部';
+    item.classList.toggle('active', selected);
+    item.setAttribute('aria-pressed', String(selected));
+  });
+  renderArchive();
+  archiveSearch.focus();
+}
+
+function setArchiveEmptyState(isEmpty) {
+  if (!isEmpty) {
+    archiveEmpty.replaceChildren();
+    archiveEmpty.hidden = true;
+    return;
+  }
+
+  const message = document.createElement('p');
+  message.textContent = '沒有找到符合條件的文章。';
+  const clearButton = document.createElement('button');
+  clearButton.type = 'button';
+  clearButton.id = 'archive-clear';
+  clearButton.textContent = '清除搜尋';
+  clearButton.addEventListener('click', clearArchiveSearch);
+  archiveEmpty.replaceChildren(message, clearButton);
+  archiveEmpty.hidden = false;
+}
+
 function renderArchive() {
   const term = archiveSearch.value.trim().toLowerCase();
   const results = archiveArticles.filter(article =>
@@ -25,7 +55,7 @@ function renderArchive() {
       <div><div class="article-meta">${archiveMeta(article)}</div><h3><a href="${archiveHref(article)}">${article.title}</a></h3><p>${article.excerpt}</p></div>
       <a class="row-arrow" href="${archiveHref(article)}" aria-label="閱讀文章">↗</a>
     </article>`).join('');
-  archiveEmpty.hidden = results.length !== 0;
+  setArchiveEmptyState(results.length === 0);
 }
 
 if (hasArchiveData) {
@@ -40,21 +70,10 @@ if (hasArchiveData) {
   }));
 
   archiveSearch.addEventListener('input', renderArchive);
-  document.querySelector('#archive-clear').addEventListener('click', () => {
-    archiveSearch.value = '';
-    archiveCategory = '全部';
-    document.querySelectorAll('.filter').forEach(item => {
-      const selected = item.dataset.category === '全部';
-      item.classList.toggle('active', selected);
-      item.setAttribute('aria-pressed', String(selected));
-    });
-    renderArchive();
-    archiveSearch.focus();
-  });
 
   renderArchive();
 } else {
   archiveCount.textContent = `${archiveList.querySelectorAll('.article-row').length} 篇`;
-  archiveEmpty.hidden = true;
+  setArchiveEmptyState(false);
   archiveTools.hidden = true;
 }
