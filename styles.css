@@ -24,3 +24,13 @@ body{background:var(--paper);color:var(--ink)}:focus-visible{outline-color:var(-
 .about-facts h3{margin:0;color:var(--muted);font:600 12px/1.6 "Noto Sans TC"}
 .about-facts p{margin:0;font:500 14px/1.6 "Noto Sans TC"}
 .about-facts article:nth-child(1) h3{color:#a43b30}.about-facts article:nth-child(2) h3{color:var(--teal)}.about-facts article:nth-child(3) h3{color:var(--purple)}
+
+/* Long-form learning guide: a compact table of contents keeps twelve answers easy to scan. */
+.article-toc{margin:48px 0 60px;padding:26px 28px;border:1px solid var(--line);background:#fff2c8}
+.article-body .article-toc h2{margin:0 0 18px;font:600 22px/1.5 "Noto Serif TC"}
+.article-toc ol{columns:2;column-gap:40px;margin:0;padding-left:1.5em}
+.article-toc li{break-inside:avoid;margin:0 0 10px;padding-left:4px;font:500 14px/1.65 "Noto Sans TC"}
+.article-toc a{border-bottom:1px solid transparent}.article-toc a:hover{color:var(--purple);border-color:var(--purple)}
+.article-body h2[id]{scroll-margin-top:24px}
+.article-body code{padding:.1em .35em;border:1px solid var(--line);background:#fff2c8;font:500 .88em/1.5 "Noto Sans TC"}
+@media(max-width:760px){.article-toc{margin:38px 0 48px;padding:22px 20px}.article-toc ol{columns:1}.article-body .article-toc h2{font-size:20px}.article-toc li{margin-bottom:2px}.article-toc a{display:inline-flex;align-items:center;min-height:44px}}
