@@ -29,7 +29,7 @@
   </header>
   <main>
     <section class="archive-hero" aria-labelledby="archive-title">
-      <p class="issue">文章總覽 · 9 篇學習紀錄</p>
+      <p class="issue" id="archive-summary">文章總覽 · 9 篇學習紀錄</p>
       <h1 id="archive-title">把每次遇到的問題，<br>整理成下一次用得上的<em>答案。</em></h1>
       <p>這裡收錄網站目前所有文章。可以依照分類或關鍵字，找到網頁設計、實作過程與學習思考。</p>
     </section>
@@ -45,6 +45,7 @@
         <label class="search"><span class="sr-only">搜尋全部文章</span><input id="archive-search" type="search" placeholder="搜尋全部文章…" autocomplete="off"><span aria-hidden="true">⌕</span></label>
       </div>
       <div class="article-list" id="archive-list" aria-live="polite">
+        <!-- SYNC:ARCHIVE_ARTICLES:START -->
         <article class="article-row fallback-article">
           <a class="article-number cover-dialogue" href="web-design-basics.html" aria-label="閱讀：網頁設計入門：12 個新手最常問的問題">01</a>
           <div><div class="article-meta"><span>網頁設計</span><span>2026.07.29</span><span>閱讀 8 分鐘</span></div><h3><a href="web-design-basics.html">網頁設計入門：12 個新手最常問的問題</a></h3><p>一次弄懂 HTML、CSS、JavaScript、網址、GitHub Pages、RWD、SEO 與常見介面名詞。</p></div>
@@ -76,26 +77,27 @@
           <a class="row-arrow" href="search-and-filter.html" aria-label="閱讀文章">↗</a>
         </article>
         <article class="article-row fallback-article">
-          <a class="article-number cover-path" href="important-details.html" aria-label="閱讀：那些畫面完成後，我才注意到的小細節">07</a>
+          <a class="article-number cover-system" href="first-webpage.html" aria-label="閱讀：我的第一個網頁練習">07</a>
+          <div><div class="article-meta"><span>實作筆記</span><span>2026.06.25</span><span>閱讀 3 分鐘</span></div><h3><a href="first-webpage.html">我的第一個網頁練習</a></h3><p>從空白檔案開始，記錄第一次完成首頁結構、樣式與手機版調整的過程。</p></div>
+          <a class="row-arrow" href="first-webpage.html" aria-label="閱讀文章">↗</a>
+        </article>
+        <article class="article-row fallback-article">
+          <a class="article-number cover-path" href="important-details.html" aria-label="閱讀：那些畫面完成後，我才注意到的小細節">08</a>
           <div><div class="article-meta"><span>實作筆記</span><span>2026.06.18</span><span>閱讀 2 分鐘</span></div><h3><a href="important-details.html">那些畫面完成後，我才注意到的小細節</a></h3><p>鍵盤焦點、空結果提示、錯誤網址——真正能使用的網站藏在正常流程之外。</p></div>
           <a class="row-arrow" href="important-details.html" aria-label="閱讀文章">↗</a>
         </article>
         <article class="article-row fallback-article">
-          <a class="article-number cover-calendar" href="learning-by-finishing.html" aria-label="閱讀：比起一直收藏教學，我更需要完成一個作品">08</a>
+          <a class="article-number cover-calendar" href="learning-by-finishing.html" aria-label="閱讀：比起一直收藏教學，我更需要完成一個作品">09</a>
           <div><div class="article-meta"><span>學習思考</span><span>2026.06.10</span><span>閱讀 2 分鐘</span></div><h3><a href="learning-by-finishing.html">比起一直收藏教學，我更需要完成一個作品</a></h3><p>知道和做到之間，隔著許多只有在真正完成作品時才會遇見的問題。</p></div>
           <a class="row-arrow" href="learning-by-finishing.html" aria-label="閱讀文章">↗</a>
         </article>
-        <article class="article-row fallback-article">
-          <a class="article-number cover-system" href="first-webpage.html" aria-label="閱讀：我的第一個網頁練習">09</a>
-          <div><div class="article-meta"><span>實作筆記</span><span>2026.06.25</span><span>閱讀 3 分鐘</span></div><h3><a href="first-webpage.html">我的第一個網頁練習</a></h3><p>從空白檔案開始，記錄第一次完成首頁結構、樣式與手機版調整的過程。</p></div>
-          <a class="row-arrow" href="first-webpage.html" aria-label="閱讀文章">↗</a>
-        </article>
+        <!-- SYNC:ARCHIVE_ARTICLES:END -->
       </div>
       <div class="empty-state" id="archive-empty" hidden></div>
     </section>
   </main>
   <footer><p>© 2026 設計網頁之路</p><div><a href="../index.html#projects">練習作品</a><a href="../index.html#about">關於</a><a href="#top">回到頂端 ↑</a></div></footer>
-  <script src="../articles.js?v=20260729-2"></script>
-  <script src="archive.js?v=20260727-1"></script>
+  <script src="../articles.js?v=20260801-1"></script>
+  <script src="archive.js?v=20260801-1"></script>
 </body>
 </html>

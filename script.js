@@ -10,6 +10,17 @@ let activeCategory = '全部';
 const meta = article => `<span>${article.category}</span><span>${article.date}</span><span>閱讀 ${article.readTime}</span>`;
 const articlePaths = window.ARTICLE_PATHS || {};
 const articleHref = article => articlePaths[article.id] || '#articles';
+const articleSummary = window.ARTICLE_SUMMARY || { total: allArticles.length };
+
+document.querySelectorAll('[data-article-total]').forEach(element => {
+  element.textContent = `${articleSummary.total} 篇`;
+});
+const articleTotalLink = document.querySelector('[data-article-total-link]');
+if (articleTotalLink) articleTotalLink.textContent = `查看全部 ${articleSummary.total} 篇 →`;
+const siteLastUpdated = document.querySelector('#site-last-updated');
+if (siteLastUpdated && articleSummary.latestUpdated) {
+  siteLastUpdated.textContent = `網站狀態：持續更新中 · 最近更新 ${articleSummary.latestUpdated}`;
+}
 
 function clearSearch() {
   search.value = '';
