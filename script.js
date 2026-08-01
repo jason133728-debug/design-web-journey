@@ -11,6 +11,24 @@ const meta = article => `<span>${article.category}</span><span>${article.date}</
 const articlePaths = window.ARTICLE_PATHS || {};
 const articleHref = article => articlePaths[article.id] || '#articles';
 const articleSummary = window.ARTICLE_SUMMARY || { total: allArticles.length };
+const dailyQuotes = Array.isArray(window.DAILY_QUOTES) ? window.DAILY_QUOTES : [];
+
+if (dailyQuotes.length) {
+  const today = new Date();
+  const dayNumber = Math.floor(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86400000);
+  const dailyQuote = dailyQuotes[dayNumber % dailyQuotes.length];
+  const quoteText = document.querySelector('#daily-quote-text');
+  const quoteSource = document.querySelector('#daily-quote-source');
+  const quoteDate = document.querySelector('#daily-quote-date');
+  const dateParts = [today.getFullYear(), String(today.getMonth() + 1).padStart(2, '0'), String(today.getDate()).padStart(2, '0')];
+
+  if (quoteText) quoteText.textContent = `「${dailyQuote.text}」`;
+  if (quoteSource) quoteSource.textContent = `— ${dailyQuote.source}`;
+  if (quoteDate) {
+    quoteDate.dateTime = dateParts.join('-');
+    quoteDate.textContent = dateParts.join('.');
+  }
+}
 
 document.querySelectorAll('[data-article-total]').forEach(element => {
   element.textContent = `${articleSummary.total} 篇`;
