@@ -8,10 +8,13 @@ const articleTools = document.querySelector('.article-tools');
 let activeCategory = '全部';
 
 const meta = article => `<span>${article.category}</span><span>${article.date}</span><span>閱讀 ${article.readTime}</span>`;
-const articlePaths = window.ARTICLE_PATHS || {};
-const articleHref = article => articlePaths[article.id] || '#articles';
+const articleHref = article => article.path || '#articles';
 const articleSummary = window.ARTICLE_SUMMARY || { total: allArticles.length };
 const dailyQuotes = Array.isArray(window.DAILY_QUOTES) ? window.DAILY_QUOTES : [];
+
+document.querySelectorAll('[data-latest-article-link]').forEach(link => {
+  if (allArticles[0]?.path) link.href = allArticles[0].path;
+});
 
 if (dailyQuotes.length) {
   const today = new Date();

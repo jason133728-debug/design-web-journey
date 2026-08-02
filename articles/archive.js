@@ -1,18 +1,17 @@
 const archiveArticles = Array.isArray(window.ARTICLES) ? window.ARTICLES : [];
-const archivePaths = window.ARTICLE_PATHS || {};
 const archiveList = document.querySelector('#archive-list');
 const archiveEmpty = document.querySelector('#archive-empty');
 const archiveSearch = document.querySelector('#archive-search');
 const archiveCount = document.querySelector('#article-count');
 const archiveTools = document.querySelector('.article-tools');
-const hasArchiveData = archiveArticles.length > 0 && Object.keys(archivePaths).length > 0;
+const hasArchiveData = archiveArticles.length > 0 && archiveArticles.every(article => article.path);
 const archiveSummary = window.ARTICLE_SUMMARY || { total: archiveArticles.length };
 let archiveCategory = '全部';
 
 const archiveSummaryText = document.querySelector('#archive-summary');
 if (archiveSummaryText) archiveSummaryText.textContent = `文章總覽 · ${archiveSummary.total} 篇學習紀錄`;
 
-const archiveHref = article => (archivePaths[article.id] || '').replace(/^articles\//, '') || '../index.html#articles';
+const archiveHref = article => (article.path || '').replace(/^articles\//, '') || '../index.html#articles';
 const archiveMeta = article => `<span>${article.category}</span><span>${article.date}</span><span>閱讀 ${article.readTime}</span>`;
 
 function clearArchiveSearch() {

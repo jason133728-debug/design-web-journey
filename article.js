@@ -2,14 +2,13 @@ const root = document.querySelector('#article-root');
 const id = new URLSearchParams(location.search).get('id');
 const articles = window.ARTICLES;
 const article = articles.find(item => item.id === id);
-const articlePaths = window.ARTICLE_PATHS || {};
-const articleHref = item => articlePaths[item.id] || 'articles/index.html';
-if (article && articlePaths[article.id]) {
+const articleHref = item => item.path || 'articles/index.html';
+if (article && article.path) {
   const canonical = document.createElement('link');
   canonical.rel = 'canonical';
-  canonical.href = new URL(articlePaths[article.id], location.href).href;
+  canonical.href = new URL(article.path, location.href).href;
   document.head.append(canonical);
-  location.replace(articlePaths[article.id]);
+  location.replace(article.path);
 } else if (!article) {
   document.title = '找不到文章｜設計網頁之路';
   document.querySelector('meta[name="description"]').content = '找不到指定文章，文章可能仍在整理中或已經移動。';

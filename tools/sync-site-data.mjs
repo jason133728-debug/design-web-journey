@@ -25,22 +25,30 @@ function loadArticleData() {
   vm.createContext(context);
   vm.runInContext(source, context, { filename: 'articles.js' });
 
-  const { ARTICLES: articles, HOMEPAGE_ARTICLES: homepageArticles, ARTICLE_PATHS: paths, ARTICLE_SUMMARY: summary } = context.window;
+  const { ARTICLES: articles, HOMEPAGE_ARTICLES: homepageArticles, ARTICLE_SUMMARY: summary } = context.window;
   if (!Array.isArray(articles) || !articles.length) throw new Error('articles.js 沒有可用的文章資料。');
 
-  const required = ['id', 'category', 'date', 'modified', 'readTime', 'title', 'excerpt', 'cover'];
+  const required = ['id', 'path', 'category', 'date', 'modified', 'readTime', 'title', 'excerpt', 'cover'];
   const ids = new Set();
+  const paths = new Set();
   for (const article of articles) {
     for (const key of required) {
       if (!article[key]) throw new Error(`文章 ${article.id || '(無 id)'} 缺少 ${key}。`);
     }
     if (ids.has(article.id)) throw new Error(`文章 id 重複：${article.id}`);
-    if (!paths?.[article.id]) throw new Error(`ARTICLE_PATHS 缺少文章：${article.id}`);
+    if (paths.has(article.path)) throw new Error(`文章網址重複：${article.path}`);
     ids.add(article.id);
+    paths.add(article.path);
   }
 
   if (summary?.total !== articles.length) throw new Error('ARTICLE_SUMMARY 與文章總數不同步。');
-  return { articles, homepageArticles, paths, summary };
+  if (articles.filter(article => article.featured).length > 1) {
+    throw new Error('只能設定一篇首頁精選文章。');
+  }
+  if (!Array.isArray(homepageArticles) || homepageArticles.length !== Math.min(3, articles.length)) {
+    throw new Error('HOMEPAGE_ARTICLES 未由文章資料正確產生。');
+  }
+  return { articles, homepageArticles, summary };
 }
 
 function update(relativePath, transform) {
@@ -73,16 +81,16 @@ function featuredHtml(article, href) {
       <div class="featured-copy"><p class="section-kicker" id="featured-title">本週靈感筆記</p><div class="article-meta">${metaHtml(article)}</div><h2><a href="${href}">${escapeHtml(article.title)}</a></h2><p>${escapeHtml(article.excerpt)}</p><a class="read-link" href="${href}">一起讀下去 <span>→</span></a></div>`;
 }
 
-function homepageCardsHtml(articles, paths) {
+function homepageCardsHtml(articles) {
   return articles.map((article, index) => {
-    const href = paths[article.id];
+    const href = article.path;
     return `        <article class="article-row fallback-article"><a class="article-number ${escapeHtml(article.cover)}" href="${href}" aria-label="閱讀：${escapeHtml(article.title)}">${String(index + 1).padStart(2, '0')}</a><div><div class="article-meta">${metaHtml(article)}</div><h3><a href="${href}">${escapeHtml(article.homeTitle || article.shortTitle || article.title)}</a></h3><p>${escapeHtml(article.excerpt)}</p></div><a class="row-arrow" href="${href}" aria-label="閱讀文章">↗</a></article>`;
   }).join('\n');
 }
 
-function archiveCardsHtml(articles, paths) {
+function archiveCardsHtml(articles) {
   return articles.map((article, index) => {
-    const href = articleFile(paths[article.id]);
+    const href = articleFile(article.path);
     return `        <article class="article-row fallback-article">
           <a class="article-number ${escapeHtml(article.cover)}" href="${href}" aria-label="閱讀：${escapeHtml(article.title)}">${String(index + 1).padStart(2, '0')}</a>
           <div><div class="article-meta">${metaHtml(article)}</div><h3><a href="${href}">${escapeHtml(article.title)}</a></h3><p>${escapeHtml(article.excerpt)}</p></div>
@@ -91,24 +99,24 @@ function archiveCardsHtml(articles, paths) {
   }).join('\n');
 }
 
-function paginationHtml(articles, paths, index) {
+function paginationHtml(articles, index) {
   const newer = articles[index - 1];
   const older = articles[index + 1];
   const newerLink = newer
-    ? `<a href="${articleFile(paths[newer.id])}"><small>← 上一篇</small>${escapeHtml(newer.shortTitle || newer.title)}</a>`
+    ? `<a href="${articleFile(newer.path)}"><small>← 上一篇</small>${escapeHtml(newer.shortTitle || newer.title)}</a>`
     : '<span></span>';
   const olderLink = older
-    ? `<a href="${articleFile(paths[older.id])}"><small>下一篇 →</small>${escapeHtml(older.shortTitle || older.title)}</a>`
+    ? `<a href="${articleFile(older.path)}"><small>下一篇 →</small>${escapeHtml(older.shortTitle || older.title)}</a>`
     : '<span></span>';
   return `<nav class="article-pagination" aria-label="文章分頁">${newerLink}${olderLink}</nav>`;
 }
 
-function syncArticlePage(source, article, articles, paths, index) {
+function syncArticlePage(source, article, articles, index) {
   const title = `${article.title}｜設計網頁之路`;
   const description = escapeHtml(article.excerpt);
   const published = isoDate(article.date);
   const modified = isoDate(article.modified);
-  const pagination = paginationHtml(articles, paths, index);
+  const pagination = paginationHtml(articles, index);
 
   let next = source
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
@@ -129,13 +137,13 @@ function syncArticlePage(source, article, articles, paths, index) {
   return next;
 }
 
-function sitemapXml(articles, paths, summary) {
+function sitemapXml(articles, summary) {
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     `  <url><loc>${siteBase}/</loc><lastmod>${summary.latestUpdatedIso}</lastmod><priority>1.0</priority></url>`,
     `  <url><loc>${siteBase}/articles/</loc><lastmod>${summary.latestUpdatedIso}</lastmod><priority>0.9</priority></url>`,
-    ...articles.map(article => `  <url><loc>${siteBase}/${paths[article.id]}</loc><lastmod>${isoDate(article.modified)}</lastmod></url>`),
+    ...articles.map(article => `  <url><loc>${siteBase}/${article.path}</loc><lastmod>${isoDate(article.modified)}</lastmod></url>`),
     `  <url><loc>${siteBase}/projects/personal-homepage.html</loc><lastmod>2026-07-14</lastmod></url>`,
     `  <url><loc>${siteBase}/projects/login-form.html</loc><lastmod>2026-07-14</lastmod></url>`,
     `  <url><loc>${siteBase}/projects/article-list.html</loc><lastmod>2026-07-14</lastmod></url>`,
@@ -146,14 +154,15 @@ function sitemapXml(articles, paths, summary) {
   return lines.join('\n');
 }
 
-const { articles, homepageArticles, paths, summary } = loadArticleData();
+const { articles, homepageArticles, summary } = loadArticleData();
 const featured = homepageArticles.find(article => article.featured) || homepageArticles[0];
 const homepageList = homepageArticles.filter(article => article.id !== featured.id);
 
 update('index.html', source => {
-  let next = replaceSyncedBlock(source, 'FEATURED', featuredHtml(featured, paths[featured.id]));
-  next = replaceSyncedBlock(next, 'HOMEPAGE_ARTICLES', homepageCardsHtml(homepageList, paths));
+  let next = replaceSyncedBlock(source, 'FEATURED', featuredHtml(featured, featured.path));
+  next = replaceSyncedBlock(next, 'HOMEPAGE_ARTICLES', homepageCardsHtml(homepageList));
   next = next
+    .replace(/(<a class="action-primary" href=")[^"]*(" data-latest-article-link>)/, `$1${articles[0].path}$2`)
     .replace(/(<dd data-article-total>)[\s\S]*?(<\/dd>)/, `$1${summary.total} 篇$2`)
     .replace(/(<a href="articles\/index\.html" data-article-total-link>)[\s\S]*?(<\/a>)/, `$1查看全部 ${summary.total} 篇 →$2`)
     .replace(/(<small id="site-last-updated">)[\s\S]*?(<\/small>)/, `$1網站狀態：持續更新中 · 最近更新 ${summary.latestUpdated}$2`);
@@ -161,7 +170,7 @@ update('index.html', source => {
 });
 
 update(path.join('articles', 'index.html'), source => {
-  let next = replaceSyncedBlock(source, 'ARCHIVE_ARTICLES', archiveCardsHtml(articles, paths));
+  let next = replaceSyncedBlock(source, 'ARCHIVE_ARTICLES', archiveCardsHtml(articles));
   next = next
     .replace(/(<p class="issue" id="archive-summary">)[\s\S]*?(<\/p>)/, `$1文章總覽 · ${summary.total} 篇學習紀錄$2`)
     .replace(/(<span id="article-count" aria-live="polite">)[\s\S]*?(<\/span>)/, `$1${summary.total} 篇$2`);
@@ -173,10 +182,10 @@ update(path.join('projects', 'article-list.html'), source => source
   .replace(/共整理 \d+ 篇/, `共整理 ${summary.total} 篇`));
 
 for (const [index, article] of articles.entries()) {
-  update(paths[article.id], source => syncArticlePage(source, article, articles, paths, index));
+  update(article.path, source => syncArticlePage(source, article, articles, index));
 }
 
-update('sitemap.xml', () => sitemapXml(articles, paths, summary));
+update('sitemap.xml', () => sitemapXml(articles, summary));
 
 if (checkOnly && changedFiles.length) {
   console.error(`下列檔案尚未與 articles.js 同步：\n- ${changedFiles.join('\n- ')}`);
