@@ -185,6 +185,13 @@ if (!workerConfigText) {
 
 const workerPath = 'tools/visitor-counter-worker.js';
 const workerText = contents.get(workerPath) || '';
+const workerPolicyPath = 'tools/visitor-counter-policy.mjs';
+const workerPolicyText = contents.get(workerPolicyPath) || '';
+const workerSecurityText = `${workerText}\n${workerPolicyText}`;
+if (!workerPolicyText) failures.push(`${workerPolicyPath}: missing`);
+if (!workerText.includes("from './visitor-counter-policy.mjs'")) {
+  failures.push(`${workerPath}: policy module import is missing`);
+}
 for (const marker of [
   "request.method === 'POST' && !isAllowedOrigin",
   'VISITOR_RATE_LIMITER.limit({ key })',
@@ -194,11 +201,21 @@ for (const marker of [
   "'X-Frame-Options': 'DENY'",
   "'X-Robots-Tag': 'noindex'"
 ]) {
-  if (!workerText.includes(marker)) failures.push(`${workerPath}: missing security marker ${marker}`);
+  if (!workerSecurityText.includes(marker)) failures.push(`${workerPath}: missing security marker ${marker}`);
 }
 
 const workflowPath = '.github/workflows/security-checks.yml';
-if (!contents.get(workflowPath)) failures.push(`${workflowPath}: missing`);
+const workflowText = contents.get(workflowPath) || '';
+if (!workflowText) failures.push(`${workflowPath}: missing`);
+if (!workflowText.includes('node --test tools/visitor-counter-policy.test.mjs')) {
+  failures.push(`${workflowPath}: Worker unit test command is missing`);
+}
+
+const workerTestPath = 'tools/visitor-counter-policy.test.mjs';
+const workerTestText = contents.get(workerTestPath) || '';
+for (const marker of ['node:test', 'handleVisitorRequest', 'rateLimitKey', 'localhost']) {
+  if (!workerTestText.includes(marker)) failures.push(`${workerTestPath}: missing ${marker}`);
+}
 
 const workflowPaths = [...contents.keys()].filter(file => /^\.github\/workflows\/.*\.ya?ml$/i.test(file));
 for (const file of workflowPaths) {
@@ -217,8 +234,28 @@ for (const file of workflowPaths) {
 
 const productionWorkflowPath = '.github/workflows/production-security-checks.yml';
 const productionWorkflowText = contents.get(productionWorkflowPath) || '';
-for (const marker of ['schedule:', 'workflow_dispatch:', 'node tools/check-production-worker.mjs']) {
+for (const marker of [
+  'schedule:',
+  'workflow_dispatch:',
+  'node tools/check-production-site.mjs',
+  'node tools/check-production-worker.mjs'
+]) {
   if (!productionWorkflowText.includes(marker)) failures.push(`${productionWorkflowPath}: missing ${marker}`);
+}
+
+const productionSiteCheckPath = 'tools/check-production-site.mjs';
+const productionSiteCheckText = contents.get(productionSiteCheckPath) || '';
+for (const marker of [
+  'https://jason133728-debug.github.io/design-web-journey/',
+  'const pageChecks = [',
+  'strict-transport-security',
+  'content-security-policy',
+  'content-security-policy-report-only',
+  'x-robots-tag',
+  '__production-monitor-missing-route__',
+  "method: 'HEAD'"
+]) {
+  if (!productionSiteCheckText.includes(marker)) failures.push(`${productionSiteCheckPath}: missing ${marker}`);
 }
 
 const productionCheckPath = 'tools/check-production-worker.mjs';
