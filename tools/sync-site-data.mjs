@@ -51,11 +51,13 @@ function loadArticleData() {
   return { articles, homepageArticles, summary };
 }
 
+const normalizeLineEndings = value => value.replaceAll('\r\n', '\n');
+
 function update(relativePath, transform) {
   const absolutePath = path.join(root, relativePath);
   const current = readFileSync(absolutePath, 'utf8');
   const next = transform(current);
-  if (next === current) return;
+  if (normalizeLineEndings(next) === normalizeLineEndings(current)) return;
   changedFiles.push(relativePath);
   if (!checkOnly) {
     const outputPath = path.join(outputRoot, relativePath);
