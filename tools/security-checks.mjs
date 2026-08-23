@@ -105,7 +105,7 @@ for (const [file, text] of contents) {
     }
   }
 
-  const inlineStyleBlocks = [...text.matchAll(/<style\b[^>]*>[\s\S]*?<\/style>/gi)].length;
+  const inlineStyleBlocks = [...text.matchAll(/<style\b[^>]*>/gi)].length;
   if (inlineStyleBlocks) failures.push(`${file}: inline style blocks are not allowed`);
   const inlineStyleAttributes = [...text.matchAll(/\sstyle\s*=/gi)].length;
   if (inlineStyleAttributes) failures.push(`${file}: inline style attributes are not allowed`);
@@ -113,10 +113,10 @@ for (const [file, text] of contents) {
   if (inlineEventHandlers) failures.push(`${file}: inline event handlers are not allowed`);
 
   let activeInlineScripts = 0;
-  for (const match of text.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+  for (const match of text.matchAll(/<script\b([^>]*)>/gi)) {
     const attributes = match[1];
     if (/\bsrc\s*=/i.test(attributes) || /type\s*=\s*["']application\/ld\+json["']/i.test(attributes)) continue;
-    if (match[2].trim()) activeInlineScripts += 1;
+    activeInlineScripts += 1;
   }
 
   if (activeInlineScripts) failures.push(`${file}: active inline scripts are not allowed`);
