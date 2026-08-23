@@ -7,13 +7,18 @@ const search = document.querySelector('#search-input');
 const articleTools = document.querySelector('.article-tools');
 let activeCategory = '全部';
 
-const meta = article => `<span>${article.category}</span><span>${article.date}</span><span>閱讀 ${article.readTime}</span>`;
-const articleHref = article => article.path || '#articles';
+const HTML_ESCAPES = Object.freeze({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' });
+const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, character => HTML_ESCAPES[character]);
+const safeClassToken = value => /^[A-Za-z0-9_-]+$/.test(String(value ?? '')) ? String(value) : '';
+const safeArticlePath = value => /^articles\/[a-z0-9-]+\.html$/i.test(String(value ?? '')) ? String(value) : '';
+const meta = article => `<span>${escapeHTML(article.category)}</span><span>${escapeHTML(article.date)}</span><span>閱讀 ${escapeHTML(article.readTime)}</span>`;
+const articleHref = article => safeArticlePath(article.path) || '#articles';
 const articleSummary = window.ARTICLE_SUMMARY || { total: allArticles.length };
 const dailyQuotes = Array.isArray(window.DAILY_QUOTES) ? window.DAILY_QUOTES : [];
 
 document.querySelectorAll('[data-latest-article-link]').forEach(link => {
-  if (allArticles[0]?.path) link.href = allArticles[0].path;
+  const latestPath = articleHref(allArticles[0] || {});
+  if (latestPath !== '#articles') link.href = latestPath;
 });
 
 if (dailyQuotes.length) {
@@ -74,8 +79,8 @@ function setEmptyState(isEmpty) {
 
 if (featured) {
   document.querySelector('#featured').innerHTML = `
-    <a class="featured-cover ${featured.cover}" href="${articleHref(featured)}" aria-label="閱讀：${featured.title}"><span>01</span><i>KEEP LEARNING, KEEP MAKING</i></a>
-    <div class="featured-copy"><p class="section-kicker" id="featured-title">本週靈感筆記</p><div class="article-meta">${meta(featured)}</div><h2><a href="${articleHref(featured)}">${featured.title}</a></h2><p>${featured.excerpt}</p><a class="read-link" href="${articleHref(featured)}">一起讀下去 <span>→</span></a></div>`;
+    <a class="featured-cover ${safeClassToken(featured.cover)}" href="${escapeHTML(articleHref(featured))}" aria-label="閱讀：${escapeHTML(featured.title)}"><span>01</span><i>KEEP LEARNING, KEEP MAKING</i></a>
+    <div class="featured-copy"><p class="section-kicker" id="featured-title">本週靈感筆記</p><div class="article-meta">${meta(featured)}</div><h2><a href="${escapeHTML(articleHref(featured))}">${escapeHTML(featured.title)}</a></h2><p>${escapeHTML(featured.excerpt)}</p><a class="read-link" href="${escapeHTML(articleHref(featured))}">一起讀下去 <span>→</span></a></div>`;
 } else {
   document.querySelector('#featured').hidden = false;
 }
@@ -98,9 +103,9 @@ function render() {
   document.querySelector('#article-count').textContent = `${results.length} 篇`;
   list.innerHTML = results.map((article, index) => `
     <article class="article-row">
-      <a class="article-number ${article.cover}" href="${articleHref(article)}" aria-label="閱讀：${article.title}">${String(index + 1).padStart(2, '0')}</a>
-      <div><div class="article-meta">${meta(article)}</div><h3><a href="${articleHref(article)}">${article.homeTitle || article.title}</a></h3><p>${article.excerpt}</p></div>
-      <a class="row-arrow" href="${articleHref(article)}" aria-label="閱讀文章">↗</a>
+      <a class="article-number ${safeClassToken(article.cover)}" href="${escapeHTML(articleHref(article))}" aria-label="閱讀：${escapeHTML(article.title)}">${String(index + 1).padStart(2, '0')}</a>
+      <div><div class="article-meta">${meta(article)}</div><h3><a href="${escapeHTML(articleHref(article))}">${escapeHTML(article.homeTitle || article.title)}</a></h3><p>${escapeHTML(article.excerpt)}</p></div>
+      <a class="row-arrow" href="${escapeHTML(articleHref(article))}" aria-label="閱讀文章">↗</a>
     </article>`).join('');
   setEmptyState(results.length === 0);
 }

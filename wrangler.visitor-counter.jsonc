@@ -11,6 +11,16 @@
       }
     ]
   },
+  "ratelimits": [
+    {
+      "name": "VISITOR_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    }
+  ],
   "vars": {
     "ALLOWED_ORIGINS": "https://jason133728-debug.github.io,http://localhost:4173,http://127.0.0.1:4173"
   },
