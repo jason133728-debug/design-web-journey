@@ -25,7 +25,10 @@ function responseHeaders(origin, isAllowed) {
   const headers = new Headers({
     'Cache-Control': 'no-store',
     'Content-Type': 'application/json; charset=utf-8',
+    'Referrer-Policy': 'no-referrer',
     'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'X-Robots-Tag': 'noindex',
     Vary: 'Origin'
   });
 
