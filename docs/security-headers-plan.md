@@ -24,11 +24,12 @@
 1. 已完成：外移 demos/login-form.html 的 inline script。
 2. 已完成：外移 2 段 noscript inline style，且不使用 unsafe-inline。
 3. 已完成：4 個作品預覽 iframe 使用最小 sandbox="allow-scripts"。
-4. 已完成靜態與 HTTP 檢查：18 個 HTML、2 個新資產與 4 個 iframe 來源可讀取。
-5. 待完成：真實瀏覽器的 Console、互動與 360、390、768、1280、1440px 視覺檢查。
+4. 已完成靜態與 HTTP 檢查：48 個 repository 檔案、18 個 HTML 與 4 個 iframe 來源通過，CSP 前置警告為 0。
+5. 已完成本機 headless Edge 檢查：17 條路由、Console／頁面錯誤、搜尋、登入示範、4 個 sandbox 預覽及 360、390、768、1280、1440px 水平溢位均通過。
 6. 已完成：根目錄新增 _headers，第一階段只設定 CSP Report-Only 與預覽站 noindex。
 7. 待完成：Cloudflare Pages OAuth 授權、預覽部署與真實瀏覽器 Console 測試。
 8. 暫不設定集中報告端點，不把瀏覽資料傳送至第三方服務。
+9. 已新增每日與手動 Production security checks，只用 OPTIONS 與 GET 驗證正式 Worker CORS、唯讀計數與安全標頭。
 
 ## 建議 CSP
 
@@ -96,14 +97,12 @@ Worker JSON API 保留：
 ```text
 Cache-Control: no-store
 X-Content-Type-Options: nosniff
-```
-
-並建議增加：
-
-```text
 Referrer-Policy: no-referrer
+X-Frame-Options: DENY
 X-Robots-Tag: noindex
 ```
+
+本次只強化 JSON API 標頭，不在 Worker 或 GitHub Pages 啟用強制 CSP；網站 CSP 仍停留在未部署生效的 Report-Only 前置設定。
 
 ## 分階段流程
 
@@ -122,7 +121,8 @@ X-Robots-Tag: noindex
 ### 第 3 階段：持續檢查
 
 - 新增外部網域、iframe、表單或 JavaScript 前先更新 CSP 測試。
-- GitHub workflow 持續禁止外部可執行 script、HTTP 資源與未審查的動態 HTML。
+- GitHub workflow 持續禁止外部可執行 script、HTTP／protocol-relative 資源、inline script／style、未隔離 iframe 與未審查的動態 HTML。
+- 每日自動驗證正式 Worker 只允許 GitHub Pages Origin，並拒絕 localhost 與 127.0.0.1。
 - 每次部署後抽查安全標頭與 Worker Origin。
 
 ## 回復策略
