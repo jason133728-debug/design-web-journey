@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   production:
-    name: Production Worker security
+    name: Production site and Worker security
     runs-on: ubuntu-24.04
     timeout-minutes: 10
 
@@ -29,6 +29,9 @@ jobs:
         with:
           node-version: "24"
           package-manager-cache: false
+
+      - name: Verify production GitHub Pages routes and headers
+        run: node tools/check-production-site.mjs
 
       - name: Verify production Worker CORS and security headers
         run: node tools/check-production-worker.mjs
