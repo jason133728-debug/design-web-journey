@@ -20,12 +20,15 @@ body{background:var(--paper);color:var(--ink)}:focus-visible{outline-color:var(-
 /* State visibility must win over component presentation styles. */
 
 /* Daily learning prompt */
-.daily-quote{display:grid;grid-template-columns:150px minmax(0,1fr) auto;align-items:start;gap:32px;margin-bottom:96px;padding:28px 32px;background:#dff2ed;border:2px solid var(--ink)}.daily-quote-heading h2{margin:0 0 8px;font:700 20px/1.35 "Noto Serif TC";color:var(--teal)}.daily-quote-heading time{font-size:11px;color:var(--muted)}.daily-quote blockquote{margin:0;font:600 clamp(22px,2.5vw,32px)/1.65 "Noto Serif TC";letter-spacing:-.02em}.daily-quote cite{align-self:end;white-space:nowrap;font-size:12px;font-style:normal;color:var(--purple)}
+.daily-quote{display:grid;grid-template-columns:150px minmax(0,1fr) auto;align-items:start;gap:32px;margin-bottom:96px;padding:28px 32px;background:#dff2ed;border:2px solid var(--ink)}.daily-quote-heading h2{margin:0 0 8px;font:700 20px/1.35 "Noto Serif TC";color:var(--teal)}.daily-quote-heading #daily-quote-date{font-size:11px;color:var(--muted)}.daily-quote blockquote{margin:0;font:600 clamp(22px,2.5vw,32px)/1.65 "Noto Serif TC";letter-spacing:-.02em}.daily-quote cite{align-self:end;white-space:nowrap;font-size:12px;font-style:normal;color:var(--purple)}
 @media(max-width:760px){.daily-quote{grid-template-columns:1fr;gap:16px;margin-bottom:70px;padding:24px 20px}.daily-quote-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px}.daily-quote-heading h2{margin:0}.daily-quote blockquote{font-size:22px;line-height:1.7}.daily-quote cite{justify-self:start}}
 [hidden]{display:none!important}
 
 /* Mobile article summaries stay useful without making each list item too tall. */
 @media(max-width:760px){.article-row p{display:-webkit-box;max-height:3.3em;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2}}
+
+/* Mobile text links keep a comfortable tap area without changing the layout hierarchy. */
+@media(max-width:760px){.brand,.article-row h3 a,body>footer a{display:inline-flex;align-items:center;min-height:44px}.search{min-height:44px}.search input{min-height:44px}}
 
 /* Keep the about facts visually consistent while giving each item real heading structure. */
 .about-facts h3{margin:0;color:var(--muted);font:600 12px/1.6 "Noto Sans TC"}

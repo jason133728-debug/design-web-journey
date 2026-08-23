@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260805-1">
+  <link rel="stylesheet" href="styles.css?v=20260820-1">
+  <link rel="stylesheet" href="visitor-counter.css?v=20260822-1">
   <noscript><style>.article-tools{display:none}</style></noscript>
 <link rel="canonical" href="https://jason133728-debug.github.io/design-web-journey/"><meta property="og:type" content="website"><meta property="og:locale" content="zh_TW"><meta property="og:site_name" content="設計網頁之路"><meta property="og:title" content="設計網頁之路｜HTML、CSS 與網頁設計學習筆記"><meta property="og:description" content="記錄從零開始學習網頁設計的過程，包含 HTML、CSS、版面設計、實作練習、錯誤修正與作品紀錄。"><meta property="og:url" content="https://jason133728-debug.github.io/design-web-journey/"><meta property="og:image" content="https://jason133728-debug.github.io/design-web-journey/assets/social-preview.svg"><meta property="og:image:type" content="image/svg+xml"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"設計網頁之路","url":"https://jason133728-debug.github.io/design-web-journey/","description":"記錄從零開始學習網頁設計的過程，包含 HTML、CSS、版面設計、實作練習、錯誤修正與作品紀錄。","inLanguage":"zh-Hant"}</script></head>
 <body id="top">
@@ -33,7 +34,7 @@
     <section class="daily-quote" aria-labelledby="daily-quote-title">
       <div class="daily-quote-heading">
         <h2 id="daily-quote-title">隨心句場</h2>
-        <time id="daily-quote-date" datetime="2026-08-02">2026.08.02</time>
+        <span id="daily-quote-date">每日更新</span>
       </div>
       <blockquote id="daily-quote-text">「一個人做了幾件事情後，將所為之事，聲稱他都是為你所做之時，是何原因？」</blockquote>
       <cite id="daily-quote-source">— 生活思考</cite>
@@ -79,7 +80,20 @@
 
     <section class="about" id="about">
       <div><p class="section-kicker">嗨，這裡是我的學習基地</p><h2>不怕做錯，<br>就怕沒有動手試。</h2></div>
-      <div class="about-copy"><p>我正在學習網頁設計，這個網站就是我的公開練習簿。從 HTML、CSS 到版面與互動，每完成一小步，就把做法和心得留在這裡。</p><p>有時畫面一次就成功，有時一個間距要調好多次。這些過程都不是失敗，而是讓我真正看懂網頁怎麼運作的線索。</p><p class="about-note">現在的目標很簡單：多做一點、多懂一點，也讓下一次的作品比這一次更好用。</p><div class="about-facts"><article><h3>我的目標</h3><p>獨立設計並架設網站</p></article><article><h3>我的工具</h3><p>Codex、HTML、CSS</p></article><article><h3>我的紀錄</h3><p>把每次修改變成筆記</p></article></div><div class="author-line"><span>網站作者｜正在學習網頁設計的初學者</span><a href="https://github.com/jason133728-debug" target="_blank" rel="noopener noreferrer">查看 GitHub 學習紀錄 ↗</a><small id="site-last-updated">網站狀態：持續更新中 · 最近更新 2026.07.29</small></div></div>
+      <div class="about-copy"><p>我正在學習網頁設計，這個網站就是我的公開練習簿。從 HTML、CSS 到版面與互動，每完成一小步，就把做法和心得留在這裡。</p><p>有時畫面一次就成功，有時一個間距要調好多次。這些過程都不是失敗，而是讓我真正看懂網頁怎麼運作的線索。</p><p class="about-note">現在的目標很簡單：多做一點、多懂一點，也讓下一次的作品比這一次更好用。</p><div class="about-facts"><article><h3>我的目標</h3><p>獨立設計並架設網站</p></article><article><h3>我的工具</h3><p>Codex、HTML、CSS</p></article><article><h3>我的紀錄</h3><p>把每次修改變成筆記</p></article></div><div class="author-line"><span>網站作者｜正在學習網頁設計的初學者</span><a href="https://github.com/jason133728-debug" target="_blank" rel="noopener noreferrer">查看 GitHub 學習紀錄 ↗</a><small id="site-last-updated">內容狀態：持續更新中 · 最新文章 2026.07.29</small></div></div>
+    </section>
+
+    <section class="visitor-counter" id="visitor-counter" aria-labelledby="visitor-counter-title" hidden>
+      <div class="visitor-counter-copy">
+        <p class="section-kicker">網站瀏覽紀錄</p>
+        <h2 id="visitor-counter-title">一起看看，<br>這段學習旅程走了多遠。</h2>
+        <p>這裡顯示全站累計瀏覽次數；同一裝置每天最多計算一次。</p>
+      </div>
+      <div class="visitor-counter-value">
+        <span>累計瀏覽次數</span>
+        <strong id="visitor-count" aria-live="polite" aria-atomic="true">—</strong>
+        <small id="visitor-count-status">正在讀取瀏覽紀錄…</small>
+      </div>
     </section>
 
     <section class="subscribe" id="subscribe">
@@ -88,5 +102,5 @@
     </section>
   </main>
   <footer><p>© 2026 設計網頁之路</p><div><a href="articles/index.html">全部文章</a><a href="#about">關於</a><a href="#top">回到頂端 ↑</a></div></footer>
-  <script src="daily-quotes.js?v=20260802-1"></script><script src="articles.js?v=20260802-2"></script><script src="script.js?v=20260802-3"></script>
+  <script src="daily-quotes.js?v=20260802-1"></script><script src="articles.js?v=20260802-2"></script><script src="script.js?v=20260820-1"></script><script src="visitor-counter-config.js?v=20260822-1"></script><script src="visitor-counter.js?v=20260822-2"></script>
 </body></html>

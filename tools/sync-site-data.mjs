@@ -165,7 +165,7 @@ update('index.html', source => {
     .replace(/(<a class="action-primary" href=")[^"]*(" data-latest-article-link>)/, `$1${articles[0].path}$2`)
     .replace(/(<dd data-article-total>)[\s\S]*?(<\/dd>)/, `$1${summary.total} 篇$2`)
     .replace(/(<a href="articles\/index\.html" data-article-total-link>)[\s\S]*?(<\/a>)/, `$1查看全部 ${summary.total} 篇 →$2`)
-    .replace(/(<small id="site-last-updated">)[\s\S]*?(<\/small>)/, `$1網站狀態：持續更新中 · 最近更新 ${summary.latestUpdated}$2`);
+    .replace(/(<small id="site-last-updated">)[\s\S]*?(<\/small>)/, `$1內容狀態：持續更新中 · 最新文章 ${summary.latestUpdated}$2`);
   return next;
 });
 

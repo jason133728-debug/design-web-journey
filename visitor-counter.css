@@ -1,0 +1,72 @@
+.visitor-counter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
+  align-items: center;
+  gap: clamp(40px, 8vw, 110px);
+  padding: 56px 0;
+  border-top: 1px solid var(--ink);
+}
+
+.visitor-counter[hidden] {
+  display: none;
+}
+
+.visitor-counter-copy h2 {
+  margin: 12px 0 18px;
+  font: 600 clamp(28px, 3.2vw, 42px) / 1.45 "Noto Serif TC";
+}
+
+.visitor-counter-copy > p:last-child {
+  max-width: 560px;
+  margin: 0;
+  color: var(--muted);
+  font: 500 15px / 1.8 "Noto Sans TC";
+}
+
+.visitor-counter-value {
+  display: grid;
+  justify-items: end;
+  gap: 7px;
+  padding: 24px 0;
+  border-top: 2px solid var(--purple);
+  border-bottom: 1px solid var(--line);
+}
+
+.visitor-counter-value > span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.visitor-counter-value strong {
+  color: var(--purple);
+  font: 700 clamp(48px, 7vw, 78px) / 1 "Noto Serif TC";
+  font-variant-numeric: tabular-nums;
+}
+
+.visitor-counter-value small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.visitor-counter-value.is-error strong {
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .visitor-counter {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 48px 0;
+  }
+
+  .visitor-counter-value {
+    justify-items: start;
+    padding: 20px 0;
+  }
+
+  .visitor-counter-value small {
+    text-align: left;
+  }
+}

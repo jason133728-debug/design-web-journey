@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "design-web-journey-visitor-counter",
+  "main": "tools/visitor-counter-worker.js",
+  "compatibility_date": "2026-08-22",
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "VISITOR_COUNTER",
+        "class_name": "VisitorCounter"
+      }
+    ]
+  },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://jason133728-debug.github.io,http://localhost:4173,http://127.0.0.1:4173"
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["VisitorCounter"]
+    }
+  ]
+}

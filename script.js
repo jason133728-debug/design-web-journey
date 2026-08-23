@@ -28,7 +28,6 @@ if (dailyQuotes.length) {
   if (quoteText) quoteText.textContent = `「${dailyQuote.text}」`;
   if (quoteSource) quoteSource.textContent = `— ${dailyQuote.source}`;
   if (quoteDate) {
-    quoteDate.dateTime = dateParts.join('-');
     quoteDate.textContent = dateParts.join('.');
   }
 }
@@ -40,7 +39,7 @@ const articleTotalLink = document.querySelector('[data-article-total-link]');
 if (articleTotalLink) articleTotalLink.textContent = `查看全部 ${articleSummary.total} 篇 →`;
 const siteLastUpdated = document.querySelector('#site-last-updated');
 if (siteLastUpdated && articleSummary.latestUpdated) {
-  siteLastUpdated.textContent = `網站狀態：持續更新中 · 最近更新 ${articleSummary.latestUpdated}`;
+  siteLastUpdated.textContent = `內容狀態：持續更新中 · 最新文章 ${articleSummary.latestUpdated}`;
 }
 
 function clearSearch() {
