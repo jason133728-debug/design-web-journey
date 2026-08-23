@@ -1,2 +1,5 @@
 # Temporary replacement files created while normalizing old one-line pages.
 *.new.html
+
+# Local Cloudflare Wrangler cache and account metadata.
+.wrangler/

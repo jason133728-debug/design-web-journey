@@ -1,4 +1,6 @@
 (() => {
+  if (window.self !== window.top) return;
+
   const counterSection = document.querySelector('#visitor-counter');
   const countElement = document.querySelector('#visitor-count');
   const statusElement = document.querySelector('#visitor-count-status');

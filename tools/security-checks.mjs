@@ -8,7 +8,7 @@ const warnings = [];
 
 function walk(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
-    if (entry.name === '.git') return [];
+    if (['.git', '.wrangler'].includes(entry.name)) return [];
     const target = path.join(directory, entry.name);
     return entry.isDirectory() ? walk(target) : [target];
   });
@@ -17,7 +17,7 @@ function walk(directory) {
 const files = walk(root);
 const relativePath = file => path.relative(root, file).replaceAll('\\', '/');
 const textExtensions = new Set(['.css', '.html', '.js', '.json', '.jsonc', '.md', '.mjs', '.svg', '.txt', '.xml', '.yaml', '.yml']);
-const textFiles = files.filter(file => textExtensions.has(path.extname(file).toLowerCase()));
+const textFiles = files.filter(file => textExtensions.has(path.extname(file).toLowerCase()) || path.basename(file) === "_headers");
 const contents = new Map(textFiles.map(file => [relativePath(file), readFileSync(file, 'utf8')]));
 
 const sensitiveFilePatterns = [
@@ -97,11 +97,11 @@ for (const [file, text] of contents) {
   }
 
   const inlineStyleBlocks = [...text.matchAll(/<style\b[^>]*>[\s\S]*?<\/style>/gi)].length;
-  const expectedInlineStyles = file === "index.html" || file === "articles/index.html" ? 1 : 0;
-  if (inlineStyleBlocks !== expectedInlineStyles) {
-    failures.push(file + ": inline style block count is " + inlineStyleBlocks + "; reviewed baseline is " + expectedInlineStyles);
-  }
-  if (expectedInlineStyles) warnings.push(file + ": move the noscript inline style to an external stylesheet before enforcing CSP");
+  if (inlineStyleBlocks) failures.push(file + ": inline style blocks are not allowed");
+  const inlineStyleAttributes = [...text.matchAll(/\sstyle\s*=/gi)].length;
+  if (inlineStyleAttributes) failures.push(file + ": inline style attributes are not allowed");
+  const inlineEventHandlers = [...text.matchAll(/\son[a-z]+\s*=/gi)].length;
+  if (inlineEventHandlers) failures.push(file + ": inline event handlers are not allowed");
 
   let activeInlineScripts = 0;
   for (const match of text.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
@@ -110,14 +110,35 @@ for (const [file, text] of contents) {
     if (match[2].trim()) activeInlineScripts += 1;
   }
 
-  const expectedInline = file === 'demos/login-form.html' ? 1 : 0;
-  if (activeInlineScripts !== expectedInline) {
-    failures.push(`${file}: active inline script count is ${activeInlineScripts}; reviewed baseline is ${expectedInline}`);
-  }
-  if (expectedInline) warnings.push(`${file}: move the remaining inline script before enforcing CSP`);
+  if (activeInlineScripts) failures.push(file + ": active inline scripts are not allowed");
 
-  const unsandboxedFrames = [...text.matchAll(/<iframe\b(?![^>]*\bsandbox(?:\s|=|>))[^>]*>/gi)].length;
-  if (unsandboxedFrames) warnings.push(`${file}: ${unsandboxedFrames} iframe(s) still need a reviewed sandbox policy`);
+  for (const match of text.matchAll(/<iframe\b[^>]*>/gi)) {
+    const sandboxAttributes = [...match[0].matchAll(/\bsandbox\s*=\s*"([^"]*)"/gi)];
+    if (sandboxAttributes.length !== 1 || sandboxAttributes[0][1].trim() !== "allow-scripts") {
+      failures.push(file + ": every iframe must use exactly one sandbox=\"allow-scripts\" attribute");
+    }
+  }
+}
+
+const pagesHeadersPath = "_headers";
+const pagesHeadersText = contents.get(pagesHeadersPath) || "";
+if (!pagesHeadersText) {
+  failures.push(pagesHeadersPath + ": missing Cloudflare Pages header configuration");
+} else {
+  if (!/^\s*Content-Security-Policy-Report-Only:/m.test(pagesHeadersText)) {
+    failures.push(pagesHeadersPath + ": CSP Report-Only header is missing");
+  }
+  if (/^\s*Content-Security-Policy:/m.test(pagesHeadersText)) {
+    failures.push(pagesHeadersPath + ": enforced CSP must not be enabled during the report-only stage");
+  }
+  for (const directive of ["default-src \"self\"", "object-src \"none\"", "script-src-attr \"none\"", "style-src-attr \"none\"", "frame-ancestors \"self\""]) {
+    const normalized = directive.replaceAll("\"", "'");
+    if (!pagesHeadersText.includes(normalized)) failures.push(pagesHeadersPath + ": missing directive " + normalized);
+  }
+  if (/unsafe-inline|unsafe-eval/.test(pagesHeadersText)) failures.push(pagesHeadersPath + ": unsafe CSP source is forbidden");
+  if (!/^\s*X-Robots-Tag:\s*noindex, nofollow\s*$/mi.test(pagesHeadersText)) {
+    failures.push(pagesHeadersPath + ": preview site must remain noindex");
+  }
 }
 
 const workerConfigPath = 'wrangler.visitor-counter.jsonc';
